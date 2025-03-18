@@ -10,17 +10,10 @@ import smsService from './sms.service';
 import pushService from './push.service';
 import logger from '../utils/logger';
 import { DeliveryStatus, NotificationStatus } from '../models/delivery-status.model';
+import notificationRepository from '../repository/notification.repository';
 
-// Interface de base de données simplifiée pour l'exemple
-// Dans une application réelle, elle serait remplacée par MongoDB, PostgreSQL, etc.
-interface DatabaseInterface {
-  saveNotification(notification: Notification): Promise<Notification>;
-  saveDeliveryStatus(status: DeliveryStatus): Promise<DeliveryStatus>;
-  updateNotificationStatus(id: string, status: NotificationStatus, updates?: Partial<Notification>): Promise<void>;
-}
-
-// Implémentation fictive pour l'exemple
-class InMemoryDatabase implements DatabaseInterface {
+// Stockage en mémoire pour le mode développement
+class InMemoryStorage {
   private notifications: Map<string, Notification> = new Map();
   private deliveryStatuses: Map<string, DeliveryStatus> = new Map();
 
@@ -45,13 +38,20 @@ class InMemoryDatabase implements DatabaseInterface {
       });
     }
   }
+
+  async getNotificationById(id: string): Promise<Notification | null> {
+    return this.notifications.get(id) || null;
+  }
 }
 
 export class NotificationService {
-  private db: DatabaseInterface;
-  
-  constructor(db?: DatabaseInterface) {
-    this.db = db || new InMemoryDatabase();
+  private storage: any;
+
+  constructor() {
+    // Utiliser le stockage en mémoire en développement
+    this.storage = process.env.NODE_ENV === 'production' 
+      ? notificationRepository 
+      : new InMemoryStorage();
   }
 
   // Point d'entrée principal pour envoyer une notification
@@ -122,7 +122,7 @@ export class NotificationService {
         },
         content: {
           subject: payload.data.subject,
-          body: payload.data.body || '',
+          body: payload.data.body || payload.data.message || 'No content provided',
           data: payload.data,
         },
         status: NotificationStatus.PENDING,
@@ -131,8 +131,8 @@ export class NotificationService {
         metadata: payload.metadata,
       };
       
-      // Sauvegarder la notification en base de données
-      await this.db.saveNotification(notification);
+      // Sauvegarder la notification en base de données ou en mémoire
+      await this.storage.saveNotification(notification);
       
       // Envoyer la notification en fonction de son type
       let result: { success: boolean; messageId?: string; error?: string };
@@ -166,10 +166,10 @@ export class NotificationService {
         },
       };
       
-      await this.db.saveDeliveryStatus(deliveryStatus);
+      await this.storage.saveDeliveryStatus(deliveryStatus);
       
       // Mettre à jour le statut de la notification
-      await this.db.updateNotificationStatus(
+      await this.storage.updateNotificationStatus(
         notification.id,
         deliveryStatus.status,
         {
@@ -231,14 +231,14 @@ export class NotificationService {
         metadata,
       };
       
-      await this.db.saveDeliveryStatus(deliveryStatus);
+      await this.storage.saveDeliveryStatus(deliveryStatus);
       
       // Mettre à jour le statut de la notification
       const updates: Partial<Notification> = {
         deliveredAt: status === NotificationStatus.DELIVERED ? new Date() : undefined,
       };
       
-      await this.db.updateNotificationStatus(notificationId, status, updates);
+      await this.storage.updateNotificationStatus(notificationId, status, updates);
       
       logger.info(`Notification status updated: ${notificationId} -> ${status}`, {
         notificationId,
@@ -257,4 +257,6 @@ export class NotificationService {
   }
 }
 
-export default new NotificationService();
+// Exporter une instance par défaut du service
+const notificationService = new NotificationService();
+export default notificationService;

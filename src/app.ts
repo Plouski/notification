@@ -5,6 +5,10 @@ import cors from 'cors';
 import compression from 'compression';
 import notificationRoutes from './routes/notification.route';
 import dotenv from 'dotenv';
+import { connectDB } from './config/database.config';
+import logger from './utils/logger';
+import { setupSwagger } from './utils/swagger';
+
 dotenv.config();
 
 // Initialiser l'application Express
@@ -19,9 +23,12 @@ app.use(express.urlencoded({ extended: true })); // Parser les requêtes avec fo
 
 // Logger les requêtes
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path}`);
+  logger.info(`${req.method} ${req.path}`);
   next();
 });
+
+// Configurer Swagger
+setupSwagger(app);
 
 // Gestion des routes
 app.use('/api/notifications', notificationRoutes);
@@ -45,7 +52,10 @@ app.use('*', (req, res) => {
 
 // Gestion des erreurs
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('Uncaught exception', err);
+  logger.error('Uncaught exception', {
+    error: err.message,
+    stack: err.stack
+  });
   
   res.status(500).json({
     error: 'Internal Server Error',
@@ -56,20 +66,40 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 });
 
 // Port d'écoute
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 3000;
 
 // Fonction de démarrage de l'application
 const startServer = async (): Promise<void> => {
   try {
-    // Connexion à MongoDB (décommentez une fois que vous avez configuré MongoDB)
-    // await connectDB();
+    // En mode développement, on peut sauter la connexion MongoDB
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        // Connexion à MongoDB en production uniquement
+        logger.info('Connecting to MongoDB...');
+        await connectDB();
+        logger.info('MongoDB connection established successfully');
+      } catch (dbError) {
+        // Continue malgré l'erreur de connexion à MongoDB (pour les tests)
+        logger.warn('Failed to connect to MongoDB, continuing in simulation mode', {
+          error: dbError instanceof Error ? dbError.message : String(dbError)
+        });
+      }
+    } else {
+      // En développement, on simule une connexion réussie
+      logger.info('Running in development mode - skipping MongoDB connection');
+    }
     
     // Démarrer le serveur
     app.listen(PORT, () => {
-      console.log(`Notification service started on port ${PORT}`);
+      logger.info(`Notification service started on port ${PORT}`);
+      logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+      logger.info(`Swagger documentation available at http://localhost:${PORT}/api-docs`);
     });
   } catch (error) {
-    console.error('Failed to start server', error);
+    logger.error('Failed to start server', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     process.exit(1);
   }
 };

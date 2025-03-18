@@ -17,3 +17,308 @@
 {"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-18 10:36:17"}
 {"level":"info","message":"[SIMULATION] Email sent to utilisateur@example.com","notificationId":"593db61f-408f-480c-b8b1-75934b151c1a","recipientId":"123456","service":"notification-service","subject":"Réinitialisation de votre mot de passe","templateId":"password-reset","timestamp":"2025-03-18 10:37:33"}
 {"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-18 10:51:14"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:42:47"}
+{"level":"info","message":"Twilio client will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:42:48"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-18 11:42:48"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 11:43:00"}
+{"error":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 11:43:05"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:44:41"}
+{"level":"info","message":"Twilio client will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:44:42"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-18 11:44:42"}
+{"level":"info","message":"Running in development mode - skipping MongoDB connection","service":"notification-service","timestamp":"2025-03-18 11:44:53"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 11:44:53"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-18 11:44:53"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 11:44:53"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:45:08"}
+{"level":"info","message":"Twilio client will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:45:09"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-18 11:45:09"}
+{"level":"info","message":"Running in development mode - skipping MongoDB connection","service":"notification-service","timestamp":"2025-03-18 11:45:18"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 11:45:18"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-18 11:45:18"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 11:45:18"}
+{"level":"info","message":"GET /api-docs","service":"notification-service","timestamp":"2025-03-18 11:45:23"}
+{"level":"info","message":"GET /api-docs/","service":"notification-service","timestamp":"2025-03-18 11:45:23"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css","service":"notification-service","timestamp":"2025-03-18 11:45:23"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js","service":"notification-service","timestamp":"2025-03-18 11:45:23"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js","service":"notification-service","timestamp":"2025-03-18 11:45:23"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js","service":"notification-service","timestamp":"2025-03-18 11:45:23"}
+{"level":"info","message":"GET /api-docs/favicon-32x32.png","service":"notification-service","timestamp":"2025-03-18 11:45:24"}
+{"level":"info","message":"GET /api/api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 11:45:52"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 11:50:00"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 11:50:29"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 11:51:47"}
+{"level":"info","message":"[SIMULATION] Email sent to test@example.com","notificationId":"8ce2a451-13ed-44f7-b531-6cfe3dc9af3a","recipientId":"user123","service":"notification-service","subject":"Vérification de votre compte","templateId":"account-verification","timestamp":"2025-03-18 11:51:47"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 11:52:47"}
+{"level":"info","message":"[SIMULATION] Email sent to test@example.com","notificationId":"14c3f196-43a9-4235-92c4-a9b70b7329ca","recipientId":"user123","service":"notification-service","subject":"Vérification de votre compte","templateId":"account-verification","timestamp":"2025-03-18 11:52:47"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 11:53:25"}
+{"level":"info","message":"[SIMULATION] SMS sent to +33612345678: Votre code de réinitialisation de mot de passe est: 123456. Ce code est valide pendant 15 minutes. Si vous n'avez pas demandé cette réinitialisation, veuillez sécuriser votre compte.","notificationId":"c8b860b7-9996-45ed-bf8e-6d3463206864","recipientId":"user123","service":"notification-service","templateId":"password-reset","timestamp":"2025-03-18 11:53:25"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-18 11:54:55"}
+{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","data":{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","expiresAt":"2025-03-20T23:59:59Z","promotionId":"promo123","title":"Nouvelle promotion"},"level":"info","message":"[SIMULATION] Push notification sent to fcm-token-example-123456","notificationId":"e3a71d7f-f62e-4127-8864-642529c46637","service":"notification-service","timestamp":"2025-03-18 11:54:55","title":"Nouvelle promotion"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 11:59:36"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 11:59:37"}
+{"error":"Failed to parse private key: Error: Invalid PEM formatted message.","level":"error","message":"Failed to initialize Firebase Admin SDK","service":"notification-service","timestamp":"2025-03-18 11:59:39"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 11:59:46"}
+{"error":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 11:59:51"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:01:53"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:01:53"}
+{"error":"Failed to parse private key: Error: Invalid PEM formatted message.","level":"error","message":"Failed to initialize Firebase Admin SDK","service":"notification-service","timestamp":"2025-03-18 12:01:54"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:02:01"}
+{"error":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:02:07"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:08:35"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:08:35"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:08:36"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:08:42"}
+{"error":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:08:47"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:14:09"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:14:09"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:14:10"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:14:16"}
+{"error":"bad auth : authentication failed","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:14:17"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:16:58"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:16:58"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:16:58"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:17:04"}
+{"error":"bad auth : authentication failed","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:17:05"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:21:51"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:22:45"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:23:26"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:23:26"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:23:26"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:23:33"}
+{"error":"querySrv ENOTFOUND _mongodb._tcp.cluster0.xxxx.mongodb.net","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:23:33"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:23:46"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:23:47"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:23:47"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:23:57"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:25:06"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:25:07"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:25:08"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:25:16"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:25:16","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:25:16"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:25:16"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:25:16"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:25:16"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 12:25:53"}
+{"error":"Notification validation failed: _id: Cast to ObjectId failed for value \"26d7290b-9770-4afa-8e6b-08b9cb560f1c\" (type string) at path \"_id\" because of \"BSONError\", content.body: Path `content.body` is required.","level":"error","message":"Failed to save notification to MongoDB","notificationId":"26d7290b-9770-4afa-8e6b-08b9cb560f1c","service":"notification-service","timestamp":"2025-03-18 12:25:53"}
+{"error":"Notification validation failed: _id: Cast to ObjectId failed for value \"26d7290b-9770-4afa-8e6b-08b9cb560f1c\" (type string) at path \"_id\" because of \"BSONError\", content.body: Path `content.body` is required.","level":"error","message":"Failed to create and send notification","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 12:25:53","type":"email"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 12:26:09"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 12:26:19"}
+{"error":"Notification validation failed: _id: Cast to ObjectId failed for value \"e086ef1c-8131-409a-903e-9438df1e97a1\" (type string) at path \"_id\" because of \"BSONError\", content.body: Path `content.body` is required.","level":"error","message":"Failed to save notification to MongoDB","notificationId":"e086ef1c-8131-409a-903e-9438df1e97a1","service":"notification-service","timestamp":"2025-03-18 12:26:19"}
+{"error":"Notification validation failed: _id: Cast to ObjectId failed for value \"e086ef1c-8131-409a-903e-9438df1e97a1\" (type string) at path \"_id\" because of \"BSONError\", content.body: Path `content.body` is required.","level":"error","message":"Failed to create and send notification","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 12:26:19","type":"email"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:27:45"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:27:45"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:27:46"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:27:57"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:27:57","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:27:57"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:27:57"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:27:57"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:27:57"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:28:08"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:28:08"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:28:09"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:28:15"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:28:16","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:28:16"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:28:16"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:28:16"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:28:16"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:29:30"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:29:31"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:29:31"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:29:38"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:29:39","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:29:39"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:29:39"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:29:39"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:29:39"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:30:16"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:30:17"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:30:17"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:30:25"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:30:26","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:30:26"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:30:26"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:30:26"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:30:26"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:30:57"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:30:58"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:30:58"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:31:08"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:31:09","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:31:09"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:31:09"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:31:09"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:31:09"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:33:14"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:33:15"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:33:16"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:33:17"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:33:17","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:33:17"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:33:17"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:33:17"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:33:17"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 12:34:00"}
+{"level":"info","message":"[SIMULATION] Email sent to gervaisines@icloud.com","notificationId":"434cbec6-0ecb-44e4-aff8-93ff7d02dc31","recipientId":"user123","service":"notification-service","subject":"Vérification de votre compte","templateId":"account-verification","timestamp":"2025-03-18 12:34:00"}
+{"level":"info","message":"Email transporter will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 12:36:38"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:36:38"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 12:36:39"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 12:36:40"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 12:36:41","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 12:36:41"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 12:36:41"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 12:36:41"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 12:36:41"}
+{"level":"info","message":"Email service will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 14:06:44"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:06:44"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:06:45"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:06:46"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:06:47","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:06:47"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:06:47"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:06:47"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:06:47"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:06:58"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"b7cdfa30-618c-4832-9c4f-78bc3fc2dd79","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:06:58"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:08:43"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"78be5606-f0a9-4bf1-ad03-847530b838ff","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:08:43"}
+{"level":"info","message":"Email service will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 14:08:56"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:08:57"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:08:57"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:08:59"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:09:00","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:09:00"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:09:00"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:09:00"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:09:00"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:09:03"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"609bbad1-209d-43a8-8778-69d43836fa33","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:09:04"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:09:24"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"e26407c1-7db2-4ece-967d-2f69509b5188","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:09:24"}
+{"level":"info","message":"Email service will use simulation mode for development","service":"notification-service","timestamp":"2025-03-18 14:09:35"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:09:35"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:09:36"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:09:39"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:09:39","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:09:39"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:09:39"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:09:39"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:09:39"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:09:46"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"aa3c248f-8bff-4c87-a660-fb324773c4a1","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:09:46"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:10:30"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:10:30"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:10:31"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:10:32"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:10:33","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:10:33"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:10:33"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:10:33"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:10:33"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:10:45"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"adac45ac-853a-474d-9df1-444636da3fe6","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:10:45"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:11:30"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=c7fc1536-343f-4c2a-aa37-e40af9832dcc is not a valid URL","level":"error","message":"Failed to send SMS","notificationId":"c7fc1536-343f-4c2a-aa37-e40af9832dcc","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:11:33"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:14:29"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:14:30"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:14:30"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:14:32"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:14:33","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:14:33"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:14:33"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:14:33"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:14:33"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:14:35"}
+{"error":"Invalid 'To' Phone Number: +336863XXXX","level":"error","message":"Failed to send SMS","notificationId":"c8c17773-132b-4e1c-bdb0-a60f32de11f0","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:14:36"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:14:55"}
+{"error":"'To' and 'From' number cannot be the same: 068632XXXX","level":"error","message":"Failed to send SMS","notificationId":"35f8165e-9c2e-40b9-a756-747981d9147a","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:14:55"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:15:37"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:15:38"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:15:38"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:15:40"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:15:41","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:15:41"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:15:41"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:15:41"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:15:41"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:16:40"}
+{"error":"'From' +33686326401 is not a Twilio phone number or Short Code country mismatch","level":"error","message":"Failed to send SMS","notificationId":"e7b10435-4145-4b85-a73e-ee14cae959ae","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:16:40"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:17:18"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:17:19"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:17:20"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:17:24"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:17:25","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:17:25"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:17:25"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:17:25"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:17:25"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:18:05"}
+{"error":"'From' +33686326400 is not a Twilio phone number or Short Code country mismatch","level":"error","message":"Failed to send SMS","notificationId":"61cd3534-a82e-49ac-bcbc-de44fcb9b245","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:18:06"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:22:08"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:22:09"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:22:11"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:22:17"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:22:26","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:22:26"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:22:26"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:22:26"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:22:26"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:22:38"}
+{"error":"Invalid 'To' Phone Number: 063727XXXX","level":"error","message":"Failed to send SMS","notificationId":"ca85cad3-3537-4f50-8b2f-2dea189a15ab","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:22:42"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:24:12"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:24:12"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:24:13"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:24:16"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:24:16","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:24:16"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:24:16"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:24:16"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:24:16"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:24:35"}
+{"level":"info","message":"SMS sent to +33686326400","messageId":"SMf366337c4270aaccafc0ff512b295b98","notificationId":"3b36e0c1-eae3-48d9-92df-8d54e59ac981","recipientId":"user123","service":"notification-service","status":"queued","templateId":"password-reset","timestamp":"2025-03-18 14:24:35"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:32:52"}
+{"level":"info","message":"SMS sent to +33686326400","messageId":"SMf70378706ba243bcb3fdbf8f56f2ec22","notificationId":"9b0f29e3-bad0-4d46-87ec-dd5648113b0f","recipientId":"user123","service":"notification-service","status":"queued","templateId":"password-reset","timestamp":"2025-03-18 14:32:52"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:34:02"}
+{"error":"The number +3363727XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +3363727XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","level":"error","message":"Failed to send SMS","notificationId":"fb434ef1-0c71-4482-8382-7992d91ece56","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:34:02"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 14:35:56"}
+{"level":"info","message":"SMS sent to +33686326400","messageId":"SM6abb8f41d60eb8d195727de82c8c74f8","notificationId":"881f71a1-7904-48a7-a8be-c5bf07bdf4d9","recipientId":"user123","service":"notification-service","status":"queued","templateId":"password-reset","timestamp":"2025-03-18 14:35:56"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-18 14:37:00"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Failed to send push notification","notificationId":"18288caa-12f4-4a23-9245-0f0abaf8a7f6","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:37:00"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 14:37:15"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-18 14:37:31"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Failed to send push notification","notificationId":"b4327174-9fcc-4276-8abd-1afa08290fc7","recipientId":"user123","service":"notification-service","timestamp":"2025-03-18 14:37:31"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:40:08"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"dda09655-54c8-4d6c-80df-13df19c166fb","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:40:09"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:43:18"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"3b5e5c15-27bb-4ac8-9f2f-ba6b4a180b2b","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:43:18"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:43:33"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:43:33"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:43:34"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:43:36"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:43:36","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:43:36"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:43:36"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:43:36"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:43:36"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 14:43:59"}
+{"error":"Unauthorized","level":"error","message":"Failed to send email","notificationId":"3c53c5fb-ab3b-4fcc-96f9-ac8617c38fe5","recipientId":"user123","response":{"errors":[{"field":null,"help":null,"message":"Permission denied, wrong credentials"}]},"service":"notification-service","timestamp":"2025-03-18 14:44:00"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:47:16"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:47:17"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:47:17"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:47:21"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:47:22","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:47:22"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:47:22"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:47:22"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:47:22"}
+{"level":"info","message":"Email service will use simulation mode","service":"notification-service","timestamp":"2025-03-18 14:47:39"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:47:40"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 14:47:40"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 14:47:44"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-18 14:47:45","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-18 14:47:45"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 14:47:45"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 14:47:45"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 14:47:45"}

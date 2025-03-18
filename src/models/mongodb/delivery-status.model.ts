@@ -17,6 +17,10 @@ export interface DeliveryStatusDocument extends Document {
 // Schéma pour le document MongoDB
 const DeliveryStatusSchema = new Schema<DeliveryStatusDocument>(
   {
+    _id: {
+      type: String,  // Utiliser String au lieu d'ObjectId
+      required: true,
+    },
     notificationId: {
       type: String,
       required: true,

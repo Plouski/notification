@@ -32,6 +32,10 @@ export interface NotificationDocument extends Document {
 // Schéma pour le document MongoDB
 const NotificationSchema = new Schema<NotificationDocument>(
   {
+    _id: {
+      type: String,  // Utiliser String au lieu d'ObjectId
+      required: true,
+    },
     type: {
       type: String,
       enum: Object.values(NotificationType),

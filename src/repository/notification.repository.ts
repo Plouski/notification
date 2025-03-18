@@ -175,7 +175,7 @@ export class NotificationRepository {
     // Conversion de DocumentMongoDB vers notre modèle de domaine
     private mapToNotification(doc: NotificationDocument): Notification {
         return {
-            id: doc._id.toString(),
+            id: doc._id ? doc._id.toString() : '',
             type: doc.type,
             template: doc.template,
             recipient: doc.recipient,
@@ -192,7 +192,7 @@ export class NotificationRepository {
     // Conversion de DocumentMongoDB vers notre modèle de domaine
     private mapToDeliveryStatus(doc: DeliveryStatusDocument): DeliveryStatus {
         return {
-            id: doc._id.toString(),
+            id: doc._id ? doc._id.toString() : '',
             notificationId: doc.notificationId,
             status: doc.status,
             timestamp: doc.timestamp,
@@ -205,4 +205,6 @@ export class NotificationRepository {
     }
 }
 
-export default new NotificationRepository();
+// Exporter une instance par défaut du repository
+const notificationRepository = new NotificationRepository();
+export default notificationRepository;
