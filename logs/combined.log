@@ -1,0 +1,19 @@
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 17:56:51"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 17:58:20"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 17:58:33"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 17:58:46"}
+{"error":"invalid signature","level":"error","message":"Authentication error","path":"/email/verify-account","service":"notification-service","timestamp":"2025-03-03 17:59:39"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 18:01:00"}
+{"error":"invalid signature","level":"error","message":"Authentication error","path":"/email/verify-account","service":"notification-service","timestamp":"2025-03-03 18:01:14"}
+{"error":"invalid signature","level":"error","message":"Authentication error","path":"/email/verify-account","service":"notification-service","timestamp":"2025-03-03 18:01:33"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 18:07:12"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 18:07:28"}
+{"error":"getaddrinfo ENOTFOUND smtp.example.com","level":"error","message":"Failed to send email","notificationId":"773190ef-39a3-4ec0-9af7-bff85579fb02","recipientId":"123456","service":"notification-service","timestamp":"2025-03-03 18:07:36"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-03 18:09:23"}
+{"level":"info","message":"[SIMULATION] Email sent to gervaisines@gmail.com","notificationId":"609b7f7e-4dc5-4c46-b609-bf39c2008dbf","recipientId":"123456","service":"notification-service","subject":"Vérification de votre compte","templateId":"account-verification","timestamp":"2025-03-03 18:09:25"}
+{"level":"info","message":"[SIMULATION] SMS sent to +33612345678: Votre code de réinitialisation de mot de passe est: 584921. Il expire dans 15 minutes.","notificationId":"5dcd742d-529b-48a3-9792-6da0c7ae9a59","recipientId":"123456","service":"notification-service","templateId":"password-reset","timestamp":"2025-03-03 18:41:05"}
+{"level":"info","message":"[SIMULATION] Email sent to utilisateur@example.com","notificationId":"b615f343-bfa4-4508-b261-49d2a4c402cb","recipientId":"123456","service":"notification-service","subject":"Réinitialisation de votre mot de passe","templateId":"password-reset","timestamp":"2025-03-03 18:42:04"}
+{"body":"Voici le contenu de la notification","data":{"action":"OPEN_PROFILE","additionalInfo":"Information supplémentaire","body":"Voici le contenu de la notification","title":"Notification importante"},"level":"info","message":"[SIMULATION] Push notification sent to votre_token_firebase_fcm","notificationId":"819010d7-be3a-4d17-b1ce-7b5a6e6b9e38","service":"notification-service","timestamp":"2025-03-03 18:46:14","title":"Notification importante"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-18 10:36:17"}
+{"level":"info","message":"[SIMULATION] Email sent to utilisateur@example.com","notificationId":"593db61f-408f-480c-b8b1-75934b151c1a","recipientId":"123456","service":"notification-service","subject":"Réinitialisation de votre mot de passe","templateId":"password-reset","timestamp":"2025-03-18 10:37:33"}
+{"level":"info","message":"Firebase Admin simulation initialized","service":"notification-service","timestamp":"2025-03-18 10:51:14"}

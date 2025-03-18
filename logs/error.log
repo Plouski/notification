@@ -1,0 +1,4 @@
+{"error":"invalid signature","level":"error","message":"Authentication error","path":"/email/verify-account","service":"notification-service","timestamp":"2025-03-03 17:59:39"}
+{"error":"invalid signature","level":"error","message":"Authentication error","path":"/email/verify-account","service":"notification-service","timestamp":"2025-03-03 18:01:14"}
+{"error":"invalid signature","level":"error","message":"Authentication error","path":"/email/verify-account","service":"notification-service","timestamp":"2025-03-03 18:01:33"}
+{"error":"getaddrinfo ENOTFOUND smtp.example.com","level":"error","message":"Failed to send email","notificationId":"773190ef-39a3-4ec0-9af7-bff85579fb02","recipientId":"123456","service":"notification-service","timestamp":"2025-03-03 18:07:36"}
