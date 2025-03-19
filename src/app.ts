@@ -3,11 +3,12 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
-import notificationRoutes from './routes/notification.route';
 import dotenv from 'dotenv';
-import { connectDB } from './config/database.config';
 import logger from './utils/logger';
 import { setupSwagger } from './utils/swagger';
+import notificationRoutes from './routes/notification.route';
+import rateLimiterMiddleware from './middlewares/rate-limiter.middleware';
+import { connectDB } from './config/database.config';
 
 dotenv.config();
 
@@ -21,16 +22,19 @@ app.use(compression()); // Compression des réponses
 app.use(express.json()); // Parser les requêtes avec JSON
 app.use(express.urlencoded({ extended: true })); // Parser les requêtes avec form-data
 
-// Logger les requêtes
+// Logger middleware
 app.use((req, res, next) => {
   logger.info(`${req.method} ${req.path}`);
   next();
 });
 
+// Rate limiter global pour prévenir les abus
+app.use(rateLimiterMiddleware);
+
 // Configurer Swagger
 setupSwagger(app);
 
-// Gestion des routes
+// Routes
 app.use('/api/notifications', notificationRoutes);
 
 // Route de santé pour les vérifications de disponibilité
@@ -71,22 +75,15 @@ const PORT = process.env.PORT || 3000;
 // Fonction de démarrage de l'application
 const startServer = async (): Promise<void> => {
   try {
-    // En mode développement, on peut sauter la connexion MongoDB
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        // Connexion à MongoDB en production uniquement
-        logger.info('Connecting to MongoDB...');
-        await connectDB();
-        logger.info('MongoDB connection established successfully');
-      } catch (dbError) {
-        // Continue malgré l'erreur de connexion à MongoDB (pour les tests)
-        logger.warn('Failed to connect to MongoDB, continuing in simulation mode', {
-          error: dbError instanceof Error ? dbError.message : String(dbError)
-        });
-      }
-    } else {
-      // En développement, on simule une connexion réussie
-      logger.info('Running in development mode - skipping MongoDB connection');
+    // Connexion à MongoDB, même en développement
+    try {
+      logger.info('Connecting to MongoDB...');
+      await connectDB();
+      logger.info('MongoDB connection established successfully');
+    } catch (dbError) {
+      logger.warn('Failed to connect to MongoDB, continuing in simulation mode', {
+        error: dbError instanceof Error ? dbError.message : String(dbError)
+      });
     }
     
     // Démarrer le serveur

@@ -1,3 +1,4 @@
+// src/utils/validator.ts
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 import logger from './logger';
@@ -9,7 +10,9 @@ export enum ValidationType {
     QUERY = 'query',
 }
 
-// Fonction de validation générique
+/**
+ * Fonction de validation générique pour les requêtes
+ */
 export const validate = (schema: Joi.Schema, type: ValidationType = ValidationType.BODY) => {
     return (req: Request, res: Response, next: NextFunction) => {
         const data = req[type];
@@ -38,8 +41,11 @@ export const validate = (schema: Joi.Schema, type: ValidationType = ValidationTy
     };
 };
 
-// Schémas de validation pour les différentes routes
+/**
+ * Schémas de validation pour les différentes routes
+ */
 export const schemas = {
+    // Vérification de compte
     accountVerification: Joi.object({
         userId: Joi.string().required(),
         email: Joi.string().email().required(),
@@ -47,6 +53,7 @@ export const schemas = {
         verificationUrl: Joi.string().uri().required(),
     }),
 
+    // Réinitialisation de mot de passe par email
     passwordResetEmail: Joi.object({
         userId: Joi.string().required(),
         email: Joi.string().email().required(),
@@ -54,12 +61,14 @@ export const schemas = {
         code: Joi.string().required(),
     }),
 
+    // Réinitialisation de mot de passe par SMS
     passwordResetSms: Joi.object({
         userId: Joi.string().required(),
         phone: Joi.string().required(),
         code: Joi.string().required(),
     }),
 
+    // Notification push
     pushNotification: Joi.object({
         userId: Joi.string().required(),
         deviceToken: Joi.string().required(),

@@ -4,20 +4,23 @@ import {
   NotificationPayload,
   NotificationTemplate,
 } from '../models/notification.model';
-// import notificationService from '../services/notification.service';
-import notificationService from '../services/notification.service.simple';
-
+import notificationService from '../services/notification.service';
 import logger from '../utils/logger';
 import { NotificationStatus } from '../models/delivery-status.model';
 
 export class NotificationController {
-  // Envoyer un email de vérification de compte
+  /**
+   * Envoie un email de vérification de compte
+   */
   async sendAccountVerificationEmail(req: Request, res: Response): Promise<void> {
     try {
       const { userId, email, name, verificationUrl } = req.body;
 
       if (!userId || !email || !verificationUrl) {
-        res.status(400).json({ success: false, message: 'Les champs userId, email et verificationUrl sont obligatoires' });
+        res.status(400).json({ 
+          success: false, 
+          message: 'Les champs userId, email et verificationUrl sont obligatoires' 
+        });
         return;
       }
 
@@ -59,13 +62,18 @@ export class NotificationController {
     }
   }
 
-  // Envoyer un code de réinitialisation de mot de passe par email
+  /**
+   * Envoie un email de réinitialisation de mot de passe
+   */
   async sendPasswordResetEmail(req: Request, res: Response): Promise<void> {
     try {
       const { userId, email, name, code } = req.body;
 
       if (!userId || !email || !code) {
-        res.status(400).json({ success: false, message: 'Les champs userId, email et code sont obligatoires' });
+        res.status(400).json({ 
+          success: false, 
+          message: 'Les champs userId, email et code sont obligatoires' 
+        });
         return;
       }
 
@@ -107,13 +115,18 @@ export class NotificationController {
     }
   }
 
-  // Envoyer un code de réinitialisation de mot de passe par SMS
+  /**
+   * Envoie un code de réinitialisation de mot de passe par SMS
+   */
   async sendPasswordResetSms(req: Request, res: Response): Promise<void> {
     try {
       const { userId, phone, code } = req.body;
 
       if (!userId || !phone || !code) {
-        res.status(400).json({ success: false, message: 'Les champs userId, phone et code sont obligatoires' });
+        res.status(400).json({ 
+          success: false, 
+          message: 'Les champs userId, phone et code sont obligatoires' 
+        });
         return;
       }
 
@@ -154,19 +167,29 @@ export class NotificationController {
     }
   }
 
-  // Envoyer une notification push
+  /**
+   * Envoie une notification push
+   */
   async sendPushNotification(req: Request, res: Response): Promise<void> {
     try {
       const { userId, deviceToken, title, body, data } = req.body;
 
       if (!userId || !deviceToken) {
-        res.status(400).json({ success: false, message: 'Les champs userId et deviceToken sont obligatoires' });
+        res.status(400).json({ 
+          success: false, 
+          message: 'Les champs userId et deviceToken sont obligatoires' 
+        });
         return;
       }
 
+      // En développement, on peut utiliser un token de test ou laisser la simulation se faire
+      // En mode développement, nous ignorerons le token fourni car il pourrait ne pas être valide
+      const useTestTokenInDev = process.env.NODE_ENV !== 'production';
+      
       const payload: NotificationPayload = {
         recipientId: userId,
-        recipientDeviceToken: deviceToken,
+        // En dev, utiliser un token factice pour forcer le mode simulation
+        recipientDeviceToken: useTestTokenInDev ? 'dev-token-for-simulation' : deviceToken,
         template: NotificationTemplate.GENERAL_NOTIFICATION,
         data: {
           title,
@@ -181,7 +204,8 @@ export class NotificationController {
         res.status(200).json({
           success: true,
           notificationId: result.notificationId,
-          message: 'Notification push envoyée avec succès'
+          message: 'Notification push envoyée avec succès',
+          simulationMode: useTestTokenInDev
         });
       } else {
         res.status(500).json({
@@ -203,20 +227,27 @@ export class NotificationController {
     }
   }
 
-  // Webhook pour recevoir les mises à jour de statut des SMS (callback Twilio)
+  /**
+   * Webhook pour recevoir les mises à jour de statut des SMS (callback Twilio)
+   */
   async smsWebhook(req: Request, res: Response): Promise<void> {
     try {
-      const { MessageSid, MessageStatus, notification_id } = req.body;
+      const { MessageSid, MessageStatus } = req.body;
+      const notificationId = req.body.notification_id || req.query.notification_id as string;
 
       if (!MessageSid || !MessageStatus) {
-        res.status(400).json({ success: false, message: 'Les informations de statut du message sont incomplètes' });
+        res.status(400).json({ 
+          success: false, 
+          message: 'Les informations de statut du message sont incomplètes' 
+        });
         return;
       }
 
-      const notificationId = notification_id || req.query.notification_id as string;
-
       if (!notificationId) {
-        res.status(400).json({ success: false, message: 'ID de notification manquant' });
+        res.status(400).json({ 
+          success: false, 
+          message: 'ID de notification manquant' 
+        });
         return;
       }
 
@@ -237,23 +268,23 @@ export class NotificationController {
           status = NotificationStatus.PENDING;
       }
 
-      // await notificationService.updateNotificationStatus(
-      //   notificationId,
-      //   status,
-      //   MessageSid,
-      //   {
-      //     provider: 'twilio',
-      //     rawStatus: MessageStatus,
-      //   }
-      // );
+      // Traitement via service
+      await notificationService.processStatusWebhook(
+        'twilio',
+        MessageSid,
+        MessageStatus,
+        notificationId,
+        req.body
+      );
 
+      // Toujours retourner un succès pour les webhooks (éviter les réessais)
       res.status(200).json({ success: true });
     } catch (error) {
       logger.error('Error processing SMS webhook', {
         error: error instanceof Error ? error.message : String(error),
       });
 
-      // Toujours renvoyer une réponse 200 aux webhooks pour éviter les ré-essais
+      // Toujours renvoyer un succès pour les webhooks (éviter les réessais)
       res.status(200).json({
         success: false,
         error: error instanceof Error ? error.message : String(error)
@@ -262,4 +293,5 @@ export class NotificationController {
   }
 }
 
+// Exporter une instance par défaut du contrôleur
 export default new NotificationController();

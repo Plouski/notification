@@ -2,7 +2,6 @@
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { appConfig } from '../config/app.config';
 
 // Options Swagger
 const swaggerOptions = {
@@ -19,11 +18,11 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${appConfig.port}${appConfig.apiPrefix}`,
+        url: `http://localhost:3000/api`,
         description: 'Serveur de développement',
       },
       {
-        url: `https://api.example.com${appConfig.apiPrefix}`,
+        url: `https://api.example.com/api`,
         description: 'Serveur de production',
       },
     ],
@@ -48,7 +47,8 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 export const setupSwagger = (app: express.Application): void => {
-  if (appConfig.environment !== 'production') {
+  // Ne pas activer Swagger en production pour des raisons de sécurité
+  if (process.env.NODE_ENV !== 'production') {
     // Servir la documentation Swagger
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     
@@ -58,7 +58,7 @@ export const setupSwagger = (app: express.Application): void => {
       res.send(swaggerSpec);
     });
     
-    console.log(`Swagger documentation available at http://localhost:${appConfig.port}/api-docs`);
+    console.log('Swagger documentation available at http://localhost:3000/api-docs');
   }
 };
 

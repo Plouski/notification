@@ -1,3 +1,8 @@
+// src/models/delivery-status.model.ts
+
+/**
+ * Statuts possibles pour une notification
+ */
 export enum NotificationStatus {
     PENDING = 'pending',
     SENT = 'sent',
@@ -7,6 +12,9 @@ export enum NotificationStatus {
     CLICKED = 'clicked'
 }
 
+/**
+ * Interface pour les statuts de livraison
+ */
 export interface DeliveryStatus {
     id: string;
     notificationId: string;

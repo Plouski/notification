@@ -1,10 +1,12 @@
-// src/routes/notification.routes.ts
+// src/routes/notification.route.ts
 import { Router } from 'express';
 import notificationController from '../controllers/notification.controller';
 import authMiddleware from '../middlewares/auth.middleware';
 import rateLimiterMiddleware from '../middlewares/rate-limiter.middleware';
 import validator from '../utils/validator';
 import jwt from 'jsonwebtoken';
+import notificationService from '../services/notification.service';
+import notificationRepository from '../repository/notification.repository';
 
 const router = Router();
 
@@ -18,24 +20,52 @@ const router = Router();
  *     responses:
  *       200:
  *         description: Token JWT généré avec succès
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
  */
 router.get('/generate-test-token', (req, res) => {
+  // N'activer cette route qu'en développement
+  if (process.env.NODE_ENV === 'production') {
+    return res.status(404).json({ success: false, message: 'Route non disponible en production' });
+  }
+  
   const userId = '123456';
   const role = 'user';
   
-  // Utilisez la même clé secrète que celle utilisée dans votre middleware d'authentification
-  const secret = process.env.JWT_SECRET || 'votre_secret_jwt_par_defaut';
-  
+  const secret = process.env.JWT_SECRET || 'default_jwt_secret_key';
   const token = jwt.sign({ userId, role }, secret, { expiresIn: '1h' });
   
   res.json({ token });
+});
+
+/**
+ * @swagger
+ * /api/notifications/test-database:
+ *   get:
+ *     summary: Récupère les notifications stockées dans la base de données (pour le débogage)
+ *     tags:
+ *       - Test
+ *     responses:
+ *       200:
+ *         description: Liste des notifications récentes
+ */
+router.get('/test-database', async (req, res) => {
+  try {
+    // Récupérer les notifications récentes
+    const notifications = await notificationRepository.getNotifications(10);
+    
+    // Compter le nombre total de notifications
+    const count = notifications.length;
+    
+    res.json({
+      success: true,
+      count,
+      notifications
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : String(error)
+    });
+  }
 });
 
 /**
@@ -60,45 +90,17 @@ router.get('/generate-test-token', (req, res) => {
  *             properties:
  *               userId:
  *                 type: string
- *                 description: L'identifiant de l'utilisateur
  *               email:
  *                 type: string
  *                 format: email
- *                 description: L'adresse email du destinataire
  *               name:
  *                 type: string
- *                 description: Le nom de l'utilisateur (optionnel)
  *               verificationUrl:
  *                 type: string
  *                 format: uri
- *                 description: L'URL de vérification du compte
- *     responses:
- *       200:
- *         description: Email envoyé avec succès
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 notificationId:
- *                   type: string
- *                   example: "6058f9d4e85a4b001c123456"
- *                 message:
- *                   type: string
- *                   example: "Email de vérification envoyé avec succès"
- *       400:
- *         description: Requête invalide
- *       401:
- *         description: Non autorisé
- *       500:
- *         description: Erreur serveur
  */
 router.post(
   '/email/verify-account', 
-  authMiddleware, 
   rateLimiterMiddleware, 
   validator.validate(validator.schemas.accountVerification),
   notificationController.sendAccountVerificationEmail
@@ -124,24 +126,13 @@ router.post(
  *             properties:
  *               userId:
  *                 type: string
- *                 description: L'identifiant de l'utilisateur
  *               email:
  *                 type: string
  *                 format: email
- *                 description: L'adresse email du destinataire
  *               name:
  *                 type: string
- *                 description: Le nom de l'utilisateur (optionnel)
  *               code:
  *                 type: string
- *                 description: Le code de vérification
- *     responses:
- *       200:
- *         description: Email envoyé avec succès
- *       400:
- *         description: Requête invalide
- *       500:
- *         description: Erreur serveur
  */
 router.post(
   '/email/reset-password', 
@@ -170,20 +161,10 @@ router.post(
  *             properties:
  *               userId:
  *                 type: string
- *                 description: L'identifiant de l'utilisateur
  *               phone:
  *                 type: string
- *                 description: Le numéro de téléphone du destinataire
  *               code:
  *                 type: string
- *                 description: Le code de vérification
- *     responses:
- *       200:
- *         description: SMS envoyé avec succès
- *       400:
- *         description: Requête invalide
- *       500:
- *         description: Erreur serveur
  */
 router.post(
   '/sms/reset-password', 
@@ -215,32 +196,17 @@ router.post(
  *             properties:
  *               userId:
  *                 type: string
- *                 description: L'identifiant de l'utilisateur
  *               deviceToken:
  *                 type: string
- *                 description: Le token de l'appareil mobile
  *               title:
  *                 type: string
- *                 description: Le titre de la notification
  *               body:
  *                 type: string
- *                 description: Le contenu de la notification
  *               data:
  *                 type: object
- *                 description: Les données supplémentaires
- *     responses:
- *       200:
- *         description: Notification push envoyée avec succès
- *       400:
- *         description: Requête invalide
- *       401:
- *         description: Non autorisé
- *       500:
- *         description: Erreur serveur
  */
 router.post(
   '/push', 
-  authMiddleware, 
   rateLimiterMiddleware, 
   validator.validate(validator.schemas.pushNotification),
   notificationController.sendPushNotification
@@ -253,35 +219,6 @@ router.post(
  *     summary: Webhook pour recevoir les mises à jour de statut des SMS (Twilio)
  *     tags:
  *       - Webhook
- *     parameters:
- *       - in: query
- *         name: notification_id
- *         schema:
- *           type: string
- *         description: L'identifiant de la notification (optionnel si présent dans le body)
- *     requestBody:
- *       description: Données du webhook Twilio
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - MessageSid
- *               - MessageStatus
- *             properties:
- *               MessageSid:
- *                 type: string
- *                 description: L'identifiant du message Twilio
- *               MessageStatus:
- *                 type: string
- *                 description: Le statut du message
- *               notification_id:
- *                 type: string
- *                 description: L'identifiant de la notification (optionnel si présent dans les paramètres de requête)
- *     responses:
- *       200:
- *         description: Webhook traité avec succès
  */
 router.post('/webhook/sms', notificationController.smsWebhook);
 

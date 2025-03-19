@@ -746,3 +746,323 @@
 {"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 16:29:05"}
 {"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 16:30:20"}
 {"level":"info","message":"Email sent to gervaisines@gmail.com via SendGrid API","messageId":"VCY0qyovS2GhQbWDvmhFfQ","notificationId":"ee91e475-e972-4be8-a61c-fbaa39a82a2b","recipientId":"user123","service":"notification-service","statusCode":202,"templateId":"account-verification","timestamp":"2025-03-18 16:30:20"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:55:27"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:55:27"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:55:27"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:55:27"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-18 16:55:28"}
+{"error":"connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017","level":"error","message":"Failed to connect to MongoDB","service":"notification-service","timestamp":"2025-03-18 16:55:33"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:57:00"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:57:00"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:57:01"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:57:02"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-18 16:57:02"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 16:57:02"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-18 16:57:02"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 16:57:02"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 16:57:53"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 16:58:06"}
+{"error":"invalid signature","level":"warn","message":"Invalid authentication token","service":"notification-service","timestamp":"2025-03-18 16:58:06"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 16:58:12"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=e271100c-e5f7-4469-aeae-8e32e9f2e6e3 is not a valid URL","level":"error","message":"Twilio error","service":"notification-service","timestamp":"2025-03-18 16:58:12"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=e271100c-e5f7-4469-aeae-8e32e9f2e6e3 is not a valid URL","level":"error","message":"Failed to send SMS notification","payload":{"data":{"code":"240917"},"recipientId":"user123","recipientPhone":"+33686326400","template":"password-reset"},"service":"notification-service","timestamp":"2025-03-18 16:58:12"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:59:36"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-18 16:59:36"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-18 16:59:36"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-18 16:59:37"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-18 16:59:37"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-18 16:59:37"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-18 16:59:37"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-18 16:59:37"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-18 16:59:41"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-18 16:59:52"}
+{"error":"Forbidden","level":"error","message":"SendGrid error","response":{"errors":[{"field":"from","help":null,"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements"}]},"service":"notification-service","timestamp":"2025-03-18 16:59:53"}
+{"error":"Forbidden","level":"error","message":"Failed to send email notification","payload":{"data":{"name":"Inès GERVAIS","verificationUrl":"https://example.com/verify?token=xyz123"},"recipientEmail":"gervaisines@gmail.com","recipientId":"user123","template":"account-verification"},"service":"notification-service","timestamp":"2025-03-18 16:59:53"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-18 17:00:52"}
+{"content":"Votre code de réinitialisation de mot de passe est: 240917. Ce code est valide pendant 15 minutes. Si vous n'avez pas demandé cette réinitialisation, veuillez sécuriser votre compte.","level":"info","message":"[SIMULATION] SMS sent to +33686326400","notificationId":"66653764-32f6-4930-ac5d-dcc7387b6f18","recipientId":"user123","service":"notification-service","template":"password-reset","timestamp":"2025-03-18 17:00:52"}
+{"level":"info","message":"Notification status updated: 66653764-32f6-4930-ac5d-dcc7387b6f18 -> sent","notificationId":"66653764-32f6-4930-ac5d-dcc7387b6f18","providerMessageId":"simulated-sms-1742313652777","service":"notification-service","status":"sent","timestamp":"2025-03-18 17:00:52"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 09:29:47"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-19 09:29:47"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 09:29:49"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 09:29:51"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 09:29:52"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 09:29:52"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 09:29:52"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 09:29:52"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 11:05:32"}
+{"content":"Votre code de réinitialisation de mot de passe est: 240917. Ce code est valide pendant 15 minutes. Si vous n'avez pas demandé cette réinitialisation, veuillez sécuriser votre compte.","level":"info","message":"[SIMULATION] SMS sent to +33686326400","notificationId":"c7df10ed-40d4-4664-a914-e8bf96abb3df","recipientId":"user123","service":"notification-service","template":"password-reset","timestamp":"2025-03-19 11:05:32"}
+{"level":"info","message":"Notification status updated: c7df10ed-40d4-4664-a914-e8bf96abb3df -> sent","notificationId":"c7df10ed-40d4-4664-a914-e8bf96abb3df","providerMessageId":"simulated-sms-1742378732434","service":"notification-service","status":"sent","timestamp":"2025-03-19 11:05:32"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 11:05:38"}
+{"level":"warn","message":"Token verification failed in development mode, continuing anyway","service":"notification-service","timestamp":"2025-03-19 11:05:38"}
+{"error":"Forbidden","level":"error","message":"SendGrid error","response":{"errors":[{"field":"from","help":null,"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements"}]},"service":"notification-service","timestamp":"2025-03-19 11:05:39"}
+{"error":"Forbidden","level":"error","message":"Failed to send email notification","payload":{"data":{"name":"Inès GERVAIS","verificationUrl":"https://example.com/verify?token=xyz123"},"recipientEmail":"gervaisines@gmail.com","recipientId":"user123","template":"account-verification"},"service":"notification-service","timestamp":"2025-03-19 11:05:39"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 11:08:44"}
+{"content":"Votre code de réinitialisation de mot de passe est: 240917. Ce code est valide pendant 15 minutes. Si vous n'avez pas demandé cette réinitialisation, veuillez sécuriser votre compte.","level":"info","message":"[SIMULATION] SMS sent to +33686326400","notificationId":"a84915a3-5ac3-479f-9771-24dceb73130c","recipientId":"user123","service":"notification-service","template":"password-reset","timestamp":"2025-03-19 11:08:44"}
+{"level":"info","message":"Notification status updated: a84915a3-5ac3-479f-9771-24dceb73130c -> sent","notificationId":"a84915a3-5ac3-479f-9771-24dceb73130c","providerMessageId":"simulated-sms-1742378924858","service":"notification-service","status":"sent","timestamp":"2025-03-19 11:08:44"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 11:08:53"}
+{"level":"warn","message":"Token verification failed in development mode, continuing anyway","service":"notification-service","timestamp":"2025-03-19 11:08:53"}
+{"error":"Forbidden","level":"error","message":"SendGrid error","response":{"errors":[{"field":"from","help":null,"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements"}]},"service":"notification-service","timestamp":"2025-03-19 11:08:53"}
+{"error":"Forbidden","level":"error","message":"Failed to send email notification","payload":{"data":{"name":"Inès GERVAIS","verificationUrl":"https://example.com/verify?token=xyz123"},"recipientEmail":"gervaisines@gmail.com","recipientId":"user123","template":"account-verification"},"service":"notification-service","timestamp":"2025-03-19 11:08:53"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:10:54"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:10:54"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:10:57"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:10:59"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 11:10:59"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 11:10:59"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 11:10:59"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 11:11:00"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 11:11:03"}
+{"level":"warn","message":"Token verification failed in development mode, continuing anyway","service":"notification-service","timestamp":"2025-03-19 11:11:03"}
+{"error":"Forbidden","level":"error","message":"SendGrid error","response":{"errors":[{"field":"from","help":null,"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements"}]},"service":"notification-service","timestamp":"2025-03-19 11:11:03"}
+{"error":"Forbidden","level":"error","message":"Failed to send email notification","payload":{"data":{"name":"Inès GERVAIS","verificationUrl":"https://example.com/verify?token=xyz123"},"recipientEmail":"gervaisines@gmail.com","recipientId":"user123","template":"account-verification"},"service":"notification-service","timestamp":"2025-03-19 11:11:03"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 11:13:32"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 11:13:36"}
+{"level":"warn","message":"Token verification failed in development mode, continuing anyway","service":"notification-service","timestamp":"2025-03-19 11:13:36"}
+{"error":"Forbidden","level":"error","message":"SendGrid error","response":{"errors":[{"field":"from","help":null,"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements"}]},"service":"notification-service","timestamp":"2025-03-19 11:13:36"}
+{"error":"Forbidden","level":"error","message":"Failed to send email notification","payload":{"data":{"name":"Inès GERVAIS","verificationUrl":"https://example.com/verify?token=xyz123"},"recipientEmail":"gervaisines@gmail.com","recipientId":"user123","template":"account-verification"},"service":"notification-service","timestamp":"2025-03-19 11:13:36"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"Nodemailer initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 11:15:15"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 11:15:18"}
+{"level":"warn","message":"Token verification failed in development mode, continuing anyway","service":"notification-service","timestamp":"2025-03-19 11:15:18"}
+{"level":"info","message":"[SIMULATION] Email sent to gervaisines@gmail.com","notificationId":"ed98064a-0153-48e3-bab9-c40b7b7f4e51","recipientId":"user123","service":"notification-service","subject":"Vérification de votre compte","template":"account-verification","timestamp":"2025-03-19 11:15:18"}
+{"level":"info","message":"Notification status updated: ed98064a-0153-48e3-bab9-c40b7b7f4e51 -> sent","notificationId":"ed98064a-0153-48e3-bab9-c40b7b7f4e51","providerMessageId":"simulated-email-1742379318280","service":"notification-service","status":"sent","timestamp":"2025-03-19 11:15:18"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:17:42"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:17:42"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:17:43"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 11:17:43"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 11:17:43"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 11:17:43"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 11:17:43"}
+{"level":"info","message":"Nodemailer initialized with Ethereal test account","previewURL":"https://ethereal.email","service":"notification-service","timestamp":"2025-03-19 11:17:43","user":"uzq2ly2bgtqjrexq@ethereal.email"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 11:44:36"}
+{"level":"warn","message":"Gmail OAuth2 credentials are not completely defined","service":"notification-service","timestamp":"2025-03-19 11:44:36"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:44:37"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 11:44:37"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 11:44:37"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 11:44:37"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 11:44:37"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 11:44:37"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:05:55"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 12:05:55"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 12:05:55"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 12:05:56"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 12:05:56"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 12:05:56"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 12:05:56"}
+{"error":"Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-395c8881213sm20191061f8f.42 - gsmtp","level":"error","message":"Failed to initialize Nodemailer SMTP","service":"notification-service","timestamp":"2025-03-19 12:05:56"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:17:19"}
+{"level":"info","message":"SMS service running in simulation mode","service":"notification-service","timestamp":"2025-03-19 12:17:19"}
+{"level":"info","message":"Firebase Admin SDK initialized in simulation mode","service":"notification-service","timestamp":"2025-03-19 12:17:20"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 12:17:20"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 12:17:20"}
+{"level":"info","message":"Environment: development","service":"notification-service","timestamp":"2025-03-19 12:17:20"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 12:17:20"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:17:20"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 12:17:24"}
+{"level":"warn","message":"Token verification failed in development mode, continuing anyway","service":"notification-service","timestamp":"2025-03-19 12:17:24"}
+{"level":"info","message":"Email sent to gervaisines@gmail.com via SendGrid","messageId":"P6deClSJTsqddZ6AFHr4Qw","notificationId":"d7b214c2-602f-466b-b794-47d8dee9da66","recipientId":"user123","service":"notification-service","timestamp":"2025-03-19 12:17:25"}
+{"level":"info","message":"Notification status updated: d7b214c2-602f-466b-b794-47d8dee9da66 -> sent","notificationId":"d7b214c2-602f-466b-b794-47d8dee9da66","providerMessageId":"P6deClSJTsqddZ6AFHr4Qw","service":"notification-service","status":"sent","timestamp":"2025-03-19 12:17:25"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:17:54"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:17:54"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:17:55"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 12:17:55"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 12:17:55"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 12:17:55"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 12:17:55"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:17:56"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 12:18:13"}
+{"error":"jwt expired","level":"warn","message":"Invalid authentication token","service":"notification-service","timestamp":"2025-03-19 12:18:13"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-19 12:18:20"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 12:19:24"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:19:25"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-19 12:19:27"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 12:19:39"}
+{"level":"info","message":"Email sent to gervaisines@gmail.com via SendGrid","messageId":"wxX-vXaZT3SEG5jb5rMpwg","notificationId":"8fa914c2-85ed-4ba8-8051-7c13cb2bf461","recipientId":"user123","service":"notification-service","timestamp":"2025-03-19 12:19:40"}
+{"level":"info","message":"Notification status updated: 8fa914c2-85ed-4ba8-8051-7c13cb2bf461 -> sent","notificationId":"8fa914c2-85ed-4ba8-8051-7c13cb2bf461","providerMessageId":"wxX-vXaZT3SEG5jb5rMpwg","service":"notification-service","status":"sent","timestamp":"2025-03-19 12:19:40"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 12:24:17"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=156a1894-586f-422e-9e8c-d3be5ff45be4 is not a valid URL","level":"error","message":"Twilio error","service":"notification-service","timestamp":"2025-03-19 12:24:19"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=156a1894-586f-422e-9e8c-d3be5ff45be4 is not a valid URL","level":"error","message":"Failed to send SMS notification","payload":{"data":{"code":"240917"},"recipientId":"user123","recipientPhone":"+33686326400","template":"password-reset"},"service":"notification-service","timestamp":"2025-03-19 12:24:19"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 12:24:36"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=4aeb8e19-4550-46fc-8ae6-cd4e8605dede is not a valid URL","level":"error","message":"Twilio error","service":"notification-service","timestamp":"2025-03-19 12:24:36"}
+{"error":"The 'StatusCallback' URL http://localhost:3000/api/notifications/webhook/sms?notification_id=4aeb8e19-4550-46fc-8ae6-cd4e8605dede is not a valid URL","level":"error","message":"Failed to send SMS notification","payload":{"data":{"code":"240917"},"recipientId":"user123","recipientPhone":"+33686326400","template":"password-reset"},"service":"notification-service","timestamp":"2025-03-19 12:24:36"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:26:25"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:26:25"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:26:26"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 12:26:26"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 12:26:26"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 12:26:26"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 12:26:26"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 12:26:26"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 12:27:02"}
+{"level":"info","message":"SMS sent to +33686326400 via Twilio","messageId":"SMd084ff7807559263bae8650982098e42","notificationId":"10cb92b5-cab0-4845-bdee-3fef214ee462","recipientId":"user123","service":"notification-service","status":"queued","timestamp":"2025-03-19 12:27:02"}
+{"level":"info","message":"Notification status updated: 10cb92b5-cab0-4845-bdee-3fef214ee462 -> sent","notificationId":"10cb92b5-cab0-4845-bdee-3fef214ee462","providerMessageId":"SMd084ff7807559263bae8650982098e42","service":"notification-service","status":"sent","timestamp":"2025-03-19 12:27:02"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 12:28:44"}
+{"level":"info","message":"SMS sent to +33686326400 via Twilio","messageId":"SM865407fbc384155cddaa251f82d73898","notificationId":"ab75647d-cd2c-470f-8234-b4612b88d1ab","recipientId":"user123","service":"notification-service","status":"queued","timestamp":"2025-03-19 12:28:44"}
+{"level":"info","message":"Notification status updated: ab75647d-cd2c-470f-8234-b4612b88d1ab -> sent","notificationId":"ab75647d-cd2c-470f-8234-b4612b88d1ab","providerMessageId":"SM865407fbc384155cddaa251f82d73898","service":"notification-service","status":"sent","timestamp":"2025-03-19 12:28:44"}
+{"level":"info","message":"POST /api/notifications/sms/reset-password","service":"notification-service","timestamp":"2025-03-19 12:28:49"}
+{"level":"info","message":"SMS sent to +33686326400 via Twilio","messageId":"SM856cd5e881910ca86491bffa0bfb5bc8","notificationId":"ff717104-4705-4b42-9186-449f432c57b9","recipientId":"user123","service":"notification-service","status":"queued","timestamp":"2025-03-19 12:28:49"}
+{"level":"info","message":"Notification status updated: ff717104-4705-4b42-9186-449f432c57b9 -> sent","notificationId":"ff717104-4705-4b42-9186-449f432c57b9","providerMessageId":"SM856cd5e881910ca86491bffa0bfb5bc8","service":"notification-service","status":"sent","timestamp":"2025-03-19 12:28:49"}
+{"level":"info","message":"POST /api/notifications/email/verify-account","service":"notification-service","timestamp":"2025-03-19 12:29:11"}
+{"level":"info","message":"Email sent to gervaisines@gmail.com via SendGrid","messageId":"eSvyypd9S0qo2w7X5Ttqbg","notificationId":"a9583ad0-a9a8-4202-a072-bf3341199be4","recipientId":"user123","service":"notification-service","timestamp":"2025-03-19 12:29:12"}
+{"level":"info","message":"Notification status updated: a9583ad0-a9a8-4202-a072-bf3341199be4 -> sent","notificationId":"a9583ad0-a9a8-4202-a072-bf3341199be4","providerMessageId":"eSvyypd9S0qo2w7X5Ttqbg","service":"notification-service","status":"sent","timestamp":"2025-03-19 12:29:12"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 12:29:28"}
+{"error":"invalid signature","level":"warn","message":"Invalid authentication token","service":"notification-service","timestamp":"2025-03-19 12:29:28"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 12:30:14"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Failed to send push notification","notificationId":"63c33610-768d-45c3-b91d-d7991457ab9c","recipientId":"user123","service":"notification-service","timestamp":"2025-03-19 12:30:15"}
+{"level":"info","message":"Notification status updated: 63c33610-768d-45c3-b91d-d7991457ab9c -> failed","notificationId":"63c33610-768d-45c3-b91d-d7991457ab9c","service":"notification-service","status":"failed","timestamp":"2025-03-19 12:30:15"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 12:30:40"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Failed to send push notification","notificationId":"3e2dea4b-3f20-440c-abc9-a5628026abf6","recipientId":"user123","service":"notification-service","timestamp":"2025-03-19 12:30:40"}
+{"level":"info","message":"Notification status updated: 3e2dea4b-3f20-440c-abc9-a5628026abf6 -> failed","notificationId":"3e2dea4b-3f20-440c-abc9-a5628026abf6","service":"notification-service","status":"failed","timestamp":"2025-03-19 12:30:40"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:02:09"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:02:10"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:04:01"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:04:01"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:04:01"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:04:02"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:04:02"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:04:02"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:04:02"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:04:02"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:09"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:09"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:10"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:05:10"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:05:10"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:05:10"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:05:10"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:10"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:15"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:16"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:20"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:20"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:21"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:05:21"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:05:21"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:05:21"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:05:21"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:21"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:55"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:56"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:56"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:05:56"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:05:56"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:05:56"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:05:56"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:05:57"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:07:09"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:07:09"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:07:10"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:07:10"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:07:10"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:07:10"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:07:10"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:07:10"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 14:08:25"}
+{"error":"jwt expired","level":"warn","message":"Invalid authentication token","service":"notification-service","timestamp":"2025-03-19 14:08:25"}
+{"level":"info","message":"GET /api/notifications/generate-test-token","service":"notification-service","timestamp":"2025-03-19 14:08:29"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 14:08:44"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Firebase error","service":"notification-service","timestamp":"2025-03-19 14:08:44"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Firebase messaging error","service":"notification-service","timestamp":"2025-03-19 14:08:44"}
+{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","data":{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","expiresAt":"2025-03-20T23:59:59Z","promotionId":"promo123","title":"Nouvelle promotion"},"level":"info","message":"[SIMULATION] Push notification sent to fcm-token-example-123456","notificationId":"9d13c3ec-e942-4d96-838f-ff8fdebdb03f","service":"notification-service","timestamp":"2025-03-19 14:08:44","title":"Nouvelle promotion"}
+{"level":"info","message":"Notification status updated: 9d13c3ec-e942-4d96-838f-ff8fdebdb03f -> sent","notificationId":"9d13c3ec-e942-4d96-838f-ff8fdebdb03f","providerMessageId":"simulated-push-1742389724743","service":"notification-service","status":"sent","timestamp":"2025-03-19 14:08:44"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:11:58"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:11:58"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:11:59"}
+{"level":"info","message":"Running in development mode - using in-memory storage","service":"notification-service","timestamp":"2025-03-19 14:11:59"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:11:59"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:11:59"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:11:59"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:11:59"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:12:10"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:12:10"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:12:10"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-19 14:12:18"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:12:18"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-19 14:12:18","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-19 14:12:18"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:12:18"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:12:18"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:12:18"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:17:07"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:17:07"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-19 14:17:08","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:17:08"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:25:39"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:25:39"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Notification service initialized with MongoDB storage","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-19 14:25:40","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:25:40"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 14:25:44"}
+{"level":"info","message":"Notification saved with ID: 45ed7613-713d-449d-ac7e-402b5b61847e","service":"notification-service","timestamp":"2025-03-19 14:25:44"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Firebase error","service":"notification-service","timestamp":"2025-03-19 14:25:44"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Firebase messaging error","service":"notification-service","timestamp":"2025-03-19 14:25:44"}
+{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","data":{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","expiresAt":"2025-03-20T23:59:59Z","promotionId":"promo123","title":"Nouvelle promotion"},"level":"info","message":"[SIMULATION] Push notification sent to fcm-token-example-123456","notificationId":"45ed7613-713d-449d-ac7e-402b5b61847e","service":"notification-service","timestamp":"2025-03-19 14:25:44","title":"Nouvelle promotion"}
+{"level":"info","message":"Delivery status saved with ID: 63f7e183-434b-4b80-8f40-d5171f5f8ca0","service":"notification-service","timestamp":"2025-03-19 14:25:44"}
+{"level":"info","message":"Notification status updated: 45ed7613-713d-449d-ac7e-402b5b61847e -> sent","service":"notification-service","timestamp":"2025-03-19 14:25:44"}
+{"level":"info","message":"Notification status updated: 45ed7613-713d-449d-ac7e-402b5b61847e -> sent","notificationId":"45ed7613-713d-449d-ac7e-402b5b61847e","providerMessageId":"simulated-push-1742390744616","service":"notification-service","status":"sent","timestamp":"2025-03-19 14:25:44"}
+{"level":"info","message":"POST /api/notifications/push","service":"notification-service","timestamp":"2025-03-19 14:26:01"}
+{"level":"info","message":"Notification saved with ID: 182d30a6-8e2f-407c-be76-6ca553ec381a","service":"notification-service","timestamp":"2025-03-19 14:26:01"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Firebase error","service":"notification-service","timestamp":"2025-03-19 14:26:02"}
+{"error":"The registration token is not a valid FCM registration token","level":"error","message":"Firebase messaging error","service":"notification-service","timestamp":"2025-03-19 14:26:02"}
+{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","data":{"body":"Ne manquez pas notre offre spéciale de -20% ce week-end !","expiresAt":"2025-03-20T23:59:59Z","promotionId":"promo123","title":"Nouvelle promotion"},"level":"info","message":"[SIMULATION] Push notification sent to fcm-token-example-123456","notificationId":"182d30a6-8e2f-407c-be76-6ca553ec381a","service":"notification-service","timestamp":"2025-03-19 14:26:02","title":"Nouvelle promotion"}
+{"level":"info","message":"Delivery status saved with ID: b478cbd9-3345-4a29-ae15-5ea1e1da4e55","service":"notification-service","timestamp":"2025-03-19 14:26:02"}
+{"level":"info","message":"Notification status updated: 182d30a6-8e2f-407c-be76-6ca553ec381a -> sent","service":"notification-service","timestamp":"2025-03-19 14:26:02"}
+{"level":"info","message":"Notification status updated: 182d30a6-8e2f-407c-be76-6ca553ec381a -> sent","notificationId":"182d30a6-8e2f-407c-be76-6ca553ec381a","providerMessageId":"simulated-push-1742390762012","service":"notification-service","status":"sent","timestamp":"2025-03-19 14:26:02"}
+{"level":"info","message":"SendGrid API initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:27:59"}
+{"level":"info","message":"Twilio client initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:28:00"}
+{"level":"info","message":"Firebase Admin SDK initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:28:00"}
+{"level":"info","message":"Notification service initialized with MongoDB storage","service":"notification-service","timestamp":"2025-03-19 14:28:00"}
+{"level":"info","message":"Connecting to MongoDB...","service":"notification-service","timestamp":"2025-03-19 14:28:00"}
+{"level":"info","message":"Nodemailer SMTP initialized successfully","service":"notification-service","timestamp":"2025-03-19 14:28:01"}
+{"level":"info","message":"Connected to MongoDB","service":"notification-service","timestamp":"2025-03-19 14:28:01","uri":"mongodb+srv://Toto:toto@cluster0.f5kut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}
+{"level":"info","message":"MongoDB connection established successfully","service":"notification-service","timestamp":"2025-03-19 14:28:01"}
+{"level":"info","message":"Notification service started on port 3000","service":"notification-service","timestamp":"2025-03-19 14:28:01"}
+{"level":"info","message":"Environment: production","service":"notification-service","timestamp":"2025-03-19 14:28:01"}
+{"level":"info","message":"Swagger documentation available at http://localhost:3000/api-docs","service":"notification-service","timestamp":"2025-03-19 14:28:01"}
+{"level":"info","message":"GET /api-docs","service":"notification-service","timestamp":"2025-03-19 14:28:08"}
+{"level":"info","message":"GET /favicon.ico","service":"notification-service","timestamp":"2025-03-19 14:28:08"}
+{"level":"info","message":"GET /api-docs","service":"notification-service","timestamp":"2025-03-19 14:28:23"}
+{"level":"info","message":"GET /swagger","service":"notification-service","timestamp":"2025-03-19 14:28:48"}

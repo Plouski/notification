@@ -1,3 +1,4 @@
+// src/models/notification.model.ts
 import { NotificationStatus } from "./delivery-status.model";
 
 export enum NotificationType {

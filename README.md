@@ -1,127 +1,104 @@
 # Service de Notification
 
-Un microservice pour l'envoi de notifications par email, SMS et push, développé avec Node.js, Express et TypeScript.
+Un microservice complet pour l'envoi de notifications par email, SMS et notifications push. Ce service permet de gérer les communications avec vos utilisateurs de manière fiable et traçable.
 
 ## Fonctionnalités
 
-- ✉️ Envoi d'emails (via Nodemailer)
-- 📱 Envoi de SMS (via Twilio)
-- 🔔 Envoi de notifications push (via Firebase)
-- 📊 Suivi des statuts de livraison
-- 🔒 Sécurité (JWT, rate limiting)
-- 📝 Journalisation structurée
-- 🔄 API RESTful documentée avec Swagger
+- 📧 **Notifications par email** : Intégration avec SendGrid et Nodemailer
+- 📱 **Notifications par SMS** : Intégration avec Twilio
+- 🔔 **Notifications push** : Intégration avec Firebase Cloud Messaging
+- 📊 **Suivi des statuts** : Traçage complet des statuts de livraison
+- 📝 **Templates** : Support de templates pour tous les types de notifications
+- 🔒 **Sécurité** : JWT pour l'authentification des requêtes
+- 📈 **Rate limiting** : Protection contre les abus
 
 ## Prérequis
 
-- Node.js 18+
-- MongoDB 6.0+
-- Docker et Docker Compose (optionnel)
+- Node.js v18+
+- MongoDB v6+
+- Redis (optionnel, pour le rate limiting distribué)
 
 ## Installation
 
-### Avec npm
-
+1. Cloner le dépôt
 ```bash
-# Installation des dépendances
+git clone https://github.com/votre-nom/service-notification.git
+cd service-notification
+```
+
+2. Installer les dépendances
+```bash
 npm install
-
-# Compilation TypeScript
-npm run build
-
-# Démarrage du serveur
-npm start
 ```
 
-### Avec Docker
+3. Configurer l'environnement
+```bash
+cp .env.example .env
+# Modifier les variables d'environnement selon votre configuration
+```
+
+4. Lancer le service en développement
+```bash
+npm run dev
+```
+
+## Docker
+
+Le service est entièrement conteneurisé pour faciliter le déploiement:
 
 ```bash
-# Construction et démarrage des services
+# Construire l'image
+docker-compose build
+
+# Lancer les services
 docker-compose up -d
-```
-
-## Configuration
-
-Créez un fichier `.env` à la racine du projet en vous basant sur le fichier `.env.example` fourni.
-
-Variables d'environnement principales :
-
-- `NODE_ENV` : Environnement (development, production)
-- `PORT` : Port du serveur
-- `MONGODB_URI` : URI de connexion MongoDB
-- `JWT_SECRET` : Clé secrète pour les tokens JWT
-- `EMAIL_*` : Configuration du serveur SMTP
-- `TWILIO_*` : Configuration Twilio pour les SMS
-- `FIREBASE_*` : Configuration Firebase pour les notifications push
-
-## Structure du projet
-
-```
-service-notification/
-├── src/
-│   ├── config/          # Configuration
-│   ├── controllers/     # Contrôleurs
-│   ├── middlewares/     # Middlewares Express
-│   ├── models/          # Modèles de données
-│   ├── repository/      # Couche d'accès aux données
-│   ├── routes/          # Routes API
-│   ├── services/        # Services métier
-│   ├── templates/       # Templates (email, SMS)
-│   ├── utils/           # Utilitaires
-│   └── app.ts           # Point d'entrée
-├── tests/               # Tests
-├── Dockerfile           # Configuration Docker
-├── docker-compose.yml   # Configuration Docker Compose
-└── package.json         # Configuration npm
 ```
 
 ## API
 
-L'API est documentée avec Swagger et accessible à l'adresse : http://localhost:3000/api-docs
+L'API est documentée via Swagger et accessible à l'adresse:
+- http://localhost:3000/api-docs (uniquement en développement)
 
 ### Endpoints principaux
 
-- `POST /api/notifications/email/verify-account` : Envoyer un email de vérification de compte
-- `POST /api/notifications/email/reset-password` : Envoyer un email de réinitialisation de mot de passe
-- `POST /api/notifications/sms/reset-password` : Envoyer un SMS de réinitialisation de mot de passe
-- `POST /api/notifications/push` : Envoyer une notification push
-- `POST /api/notifications/webhook/sms` : Webhook pour les statuts de livraison des SMS
+- `POST /api/notifications/email/verify-account` - Envoyer un email de vérification
+- `POST /api/notifications/email/reset-password` - Envoyer un email de réinitialisation
+- `POST /api/notifications/sms/reset-password` - Envoyer un SMS de réinitialisation
+- `POST /api/notifications/push` - Envoyer une notification push
+- `POST /api/notifications/webhook/sms` - Webhook pour les statuts SMS (Twilio)
+
+## Architecture
+
+Le service est construit selon une architecture en couches:
+
+- **Controllers**: Gestion des requêtes HTTP
+- **Services**: Logique métier et intégration avec les fournisseurs
+- **Repository**: Accès aux données
+- **Models**: Définition des objets de domaine
+- **Middleware**: Authentification, validation, etc.
+- **Utils**: Utilitaires partagés
+
+## Mode Simulation
+
+En développement, le service fonctionne en mode simulation et n'envoie pas réellement de notifications. Les notifications sont enregistrées dans les logs pour faciliter le développement.
 
 ## Tests
 
 ```bash
-# Exécuter les tests
+# Exécuter les tests unitaires
 npm test
 
 # Exécuter les tests avec couverture
 npm run test:coverage
 ```
 
-## Déploiement
+## Respect des réglementations
 
-### Préparation pour la production
-
-1. Modifiez le fichier `.env` avec les paramètres de production
-2. Compilez le code TypeScript avec `npm run build`
-3. Démarrez le service avec `NODE_ENV=production npm start`
-
-### Avec Docker
-
-```bash
-# Construction de l'image
-docker build -t service-notification .
-
-# Démarrage du conteneur
-docker run -p 3000:3000 --env-file .env service-notification
-```
-
-## Bonnes pratiques
-
-- Limiter le nombre de messages envoyés par utilisateur
-- Surveiller les taux de livraison et d'ouverture
-- Mettre en œuvre des mécanismes de réessai pour les messages non livrés
-- Effectuer des sauvegardes régulières de la base de données
+Ce service est conçu pour respecter:
+- Le RGPD (limiter les données personnelles, consentement explicite)
+- Les réglementations anti-spam (opt-in, désinscription facile)
+- Le stockage sécurisé des données (chiffrement des informations sensibles)
 
 ## Licence
 
-ISC
+MIT

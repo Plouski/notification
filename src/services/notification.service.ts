@@ -4,25 +4,28 @@ import {
   Notification, 
   NotificationType,
   NotificationPayload,
+  NotificationTemplate
 } from '../models/notification.model';
+import { NotificationStatus } from '../models/delivery-status.model';
+import logger from '../utils/logger';
 import emailService from './email.service';
 import smsService from './sms.service';
 import pushService from './push.service';
-import logger from '../utils/logger';
-import { DeliveryStatus, NotificationStatus } from '../models/delivery-status.model';
 import notificationRepository from '../repository/notification.repository';
 
-// Stockage en mémoire pour le mode développement
+/**
+ * Storage abstraction pour permettre le développement sans base de données
+ */
 class InMemoryStorage {
   private notifications: Map<string, Notification> = new Map();
-  private deliveryStatuses: Map<string, DeliveryStatus> = new Map();
+  private deliveryStatuses: Map<string, any> = new Map();
 
   async saveNotification(notification: Notification): Promise<Notification> {
     this.notifications.set(notification.id, notification);
     return notification;
   }
 
-  async saveDeliveryStatus(status: DeliveryStatus): Promise<DeliveryStatus> {
+  async saveDeliveryStatus(status: any): Promise<any> {
     this.deliveryStatuses.set(status.id, status);
     return status;
   }
@@ -42,54 +45,51 @@ class InMemoryStorage {
   async getNotificationById(id: string): Promise<Notification | null> {
     return this.notifications.get(id) || null;
   }
+
+  async getNotifications(limit = 10): Promise<Notification[]> {
+    return Array.from(this.notifications.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice(0, limit);
+  }
 }
 
+/**
+ * Service principal pour l'envoi et la gestion des notifications
+ */
 export class NotificationService {
   private storage: any;
 
   constructor() {
-    // Utiliser le stockage en mémoire en développement
-    this.storage = process.env.NODE_ENV === 'production' 
-      ? notificationRepository 
-      : new InMemoryStorage();
+    // Utiliser toujours le repository MongoDB pour stocker les données
+    // En développement, nous nous connecterons à MongoDB directement
+    this.storage = notificationRepository;
+    logger.info('Notification service initialized with MongoDB storage');
   }
 
-  // Point d'entrée principal pour envoyer une notification
-  async sendNotification(payload: NotificationPayload): Promise<{ success: boolean; notificationId: string; error?: string }> {
+  /**
+   * Envoie une notification en fonction des informations fournies
+   */
+  async sendNotification(payload: NotificationPayload): Promise<{ 
+    success: boolean; 
+    notificationId: string; 
+    error?: string 
+  }> {
     try {
+      // Validation des données de base
+      if (!payload.recipientId) {
+        throw new Error('L\'ID du destinataire est obligatoire');
+      }
+
       // Déterminer le type de notification en fonction des données fournies
-      const types: NotificationType[] = [];
-      
       if (payload.recipientEmail) {
-        types.push(NotificationType.EMAIL);
-      }
-      
-      if (payload.recipientPhone) {
-        types.push(NotificationType.SMS);
-      }
-      
-      if (payload.recipientDeviceToken) {
-        types.push(NotificationType.PUSH);
-      }
-      
-      if (types.length === 0) {
+        return this.sendEmailNotification(payload);
+      } else if (payload.recipientPhone) {
+        return this.sendSmsNotification(payload);
+      } else if (payload.recipientDeviceToken) {
+        return this.sendPushNotification(payload);
+      } else {
         throw new Error('Un destinataire valide (email, téléphone ou token d\'appareil) doit être fourni');
       }
-      
-      // Créer une notification pour chaque type
-      const results = await Promise.all(
-        types.map(type => this.createAndSendNotification(type, payload))
-      );
-      
-      // Vérifier si au moins une notification a réussi
-      const anySuccess = results.some(r => r.success);
-      
-      // Pour simplifier, retourner l'ID de la première notification
-      return {
-        success: anySuccess,
-        notificationId: results[0].notificationId,
-        error: anySuccess ? undefined : results.map(r => r.error).filter(Boolean).join('; '),
-      };
     } catch (error) {
       logger.error('Failed to send notification', {
         error: error instanceof Error ? error.message : String(error),
@@ -103,156 +103,328 @@ export class NotificationService {
     }
   }
 
-  // Créer et envoyer un type spécifique de notification
-  private async createAndSendNotification(
-    type: NotificationType, 
-    payload: NotificationPayload
-  ): Promise<{ success: boolean; notificationId: string; error?: string }> {
+  /**
+   * Envoie une notification par email
+   */
+  private async sendEmailNotification(payload: NotificationPayload): Promise<{ 
+    success: boolean; 
+    notificationId: string; 
+    error?: string 
+  }> {
+    const notificationId = uuidv4();
+    
     try {
       // Créer l'objet notification
       const notification: Notification = {
-        id: uuidv4(),
-        type,
+        id: notificationId,
+        type: NotificationType.EMAIL,
         template: payload.template,
         recipient: {
           id: payload.recipientId,
-          email: type === NotificationType.EMAIL ? payload.recipientEmail : undefined,
-          phone: type === NotificationType.SMS ? payload.recipientPhone : undefined,
-          deviceToken: type === NotificationType.PUSH ? payload.recipientDeviceToken : undefined,
+          email: payload.recipientEmail
         },
         content: {
           subject: payload.data.subject,
-          body: payload.data.body || payload.data.message || 'No content provided',
-          data: payload.data,
+          body: payload.data.body || payload.data.message || '',
+          data: payload.data
         },
         status: NotificationStatus.PENDING,
         createdAt: new Date(),
         updatedAt: new Date(),
-        metadata: payload.metadata,
+        metadata: payload.metadata
       };
       
-      // Sauvegarder la notification en base de données ou en mémoire
+      // Sauvegarder la notification dans MongoDB
       await this.storage.saveNotification(notification);
       
-      // Envoyer la notification en fonction de son type
-      let result: { success: boolean; messageId?: string; error?: string };
+      // Envoyer l'email
+      const result = await emailService.sendEmail(notification);
       
-      switch (type) {
-        case NotificationType.EMAIL:
-          result = await emailService.sendEmail(notification);
-          break;
-        case NotificationType.SMS:
-          result = await smsService.sendSms(notification);
-          break;
-        case NotificationType.PUSH:
-          result = await pushService.sendPushNotification(notification);
-          break;
-        default:
-          throw new Error(`Type de notification non supporté: ${type}`);
-      }
-      
-      // Créer et sauvegarder le statut d'envoi
-      const deliveryStatus: DeliveryStatus = {
-        id: uuidv4(),
-        notificationId: notification.id,
-        status: result.success ? NotificationStatus.SENT : NotificationStatus.FAILED,
-        timestamp: new Date(),
-        provider: this.getProviderName(type),
-        providerMessageId: result.messageId,
-        errorMessage: result.error,
-        attempts: 1,
-        metadata: {
-          initialAttempt: true,
-        },
-      };
-      
-      await this.storage.saveDeliveryStatus(deliveryStatus);
-      
-      // Mettre à jour le statut de la notification
-      await this.storage.updateNotificationStatus(
-        notification.id,
-        deliveryStatus.status,
-        {
-          sentAt: result.success ? new Date() : undefined,
-        }
+      // Mettre à jour le statut
+      await this.updateNotificationStatus(
+        notificationId,
+        result.success ? NotificationStatus.SENT : NotificationStatus.FAILED,
+        result.messageId,
+        result.error,
+        { provider: 'email' }
       );
       
       return {
         success: result.success,
-        notificationId: notification.id,
-        error: result.error,
+        notificationId,
+        error: result.error
       };
     } catch (error) {
-      logger.error('Failed to create and send notification', {
-        type,
-        recipientId: payload.recipientId,
+      logger.error('Failed to send email notification', {
         error: error instanceof Error ? error.message : String(error),
+        payload
       });
       
       return {
         success: false,
-        notificationId: '',
-        error: error instanceof Error ? error.message : String(error),
+        notificationId,
+        error: error instanceof Error ? error.message : String(error)
       };
     }
   }
 
-  // Obtenir le nom du fournisseur en fonction du type de notification
-  private getProviderName(type: NotificationType): string {
-    switch (type) {
-      case NotificationType.EMAIL:
-        return 'nodemailer';
-      case NotificationType.SMS:
-        return 'twilio';
-      case NotificationType.PUSH:
-        return 'firebase';
-      default:
-        return 'unknown';
+  /**
+   * Envoie une notification par SMS
+   */
+  private async sendSmsNotification(payload: NotificationPayload): Promise<{ 
+    success: boolean; 
+    notificationId: string; 
+    error?: string 
+  }> {
+    const notificationId = uuidv4();
+    
+    try {
+      // Créer l'objet notification
+      const notification: Notification = {
+        id: notificationId,
+        type: NotificationType.SMS,
+        template: payload.template,
+        recipient: {
+          id: payload.recipientId,
+          phone: payload.recipientPhone
+        },
+        content: {
+          body: payload.data.message || payload.data.code ? `Code: ${payload.data.code}` : '',
+          data: payload.data
+        },
+        status: NotificationStatus.PENDING,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        metadata: payload.metadata
+      };
+      
+      // Sauvegarder la notification
+      await this.storage.saveNotification(notification);
+      
+      // Envoyer le SMS
+      const result = await smsService.sendSms(notification);
+      
+      // Mettre à jour le statut
+      await this.updateNotificationStatus(
+        notificationId,
+        result.success ? NotificationStatus.SENT : NotificationStatus.FAILED,
+        result.messageId,
+        result.error,
+        { provider: 'sms' }
+      );
+      
+      return {
+        success: result.success,
+        notificationId,
+        error: result.error
+      };
+    } catch (error) {
+      logger.error('Failed to send SMS notification', {
+        error: error instanceof Error ? error.message : String(error),
+        payload
+      });
+      
+      return {
+        success: false,
+        notificationId,
+        error: error instanceof Error ? error.message : String(error)
+      };
     }
   }
 
-  // Méthode pour mettre à jour le statut d'une notification
+  /**
+   * Envoie une notification push
+   */
+  private async sendPushNotification(payload: NotificationPayload): Promise<{ 
+    success: boolean; 
+    notificationId: string; 
+    error?: string 
+  }> {
+    const notificationId = uuidv4();
+    
+    try {
+      // Créer l'objet notification
+      const notification: Notification = {
+        id: notificationId,
+        type: NotificationType.PUSH,
+        template: payload.template,
+        recipient: {
+          id: payload.recipientId,
+          deviceToken: payload.recipientDeviceToken
+        },
+        content: {
+          subject: payload.data.title,
+          body: payload.data.body || '',
+          data: payload.data
+        },
+        status: NotificationStatus.PENDING,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        metadata: payload.metadata
+      };
+      
+      // Sauvegarder la notification
+      await this.storage.saveNotification(notification);
+      
+      // Envoyer la notification push
+      const result = await pushService.sendPushNotification(notification);
+      
+      // Mettre à jour le statut
+      await this.updateNotificationStatus(
+        notificationId,
+        result.success ? NotificationStatus.SENT : NotificationStatus.FAILED,
+        result.messageId,
+        result.error,
+        { provider: 'push' }
+      );
+      
+      return {
+        success: result.success,
+        notificationId,
+        error: result.error
+      };
+    } catch (error) {
+      logger.error('Failed to send push notification', {
+        error: error instanceof Error ? error.message : String(error),
+        payload
+      });
+      
+      return {
+        success: false,
+        notificationId,
+        error: error instanceof Error ? error.message : String(error)
+      };
+    }
+  }
+
+  /**
+   * Met à jour le statut d'une notification et enregistre l'historique
+   */
   async updateNotificationStatus(
-    notificationId: string, 
+    notificationId: string,
     status: NotificationStatus,
     providerMessageId?: string,
+    errorMessage?: string,
     metadata?: Record<string, any>
   ): Promise<void> {
     try {
-      // Créer un nouveau statut d'envoi
-      const deliveryStatus: DeliveryStatus = {
+      // Créer un statut de livraison
+      const deliveryStatus = {
         id: uuidv4(),
         notificationId,
         status,
         timestamp: new Date(),
-        provider: metadata?.provider || 'manual-update',
+        provider: metadata?.provider || 'system',
         providerMessageId,
+        errorMessage,
         attempts: metadata?.attempts || 1,
-        metadata,
+        metadata
       };
       
+      // Sauvegarder le statut
       await this.storage.saveDeliveryStatus(deliveryStatus);
       
-      // Mettre à jour le statut de la notification
-      const updates: Partial<Notification> = {
-        deliveredAt: status === NotificationStatus.DELIVERED ? new Date() : undefined,
-      };
+      // Mettre à jour la notification
+      const updates: Partial<Notification> = {};
+      
+      if (status === NotificationStatus.SENT) {
+        updates.sentAt = new Date();
+      } else if (status === NotificationStatus.DELIVERED) {
+        updates.deliveredAt = new Date();
+      }
       
       await this.storage.updateNotificationStatus(notificationId, status, updates);
       
       logger.info(`Notification status updated: ${notificationId} -> ${status}`, {
-        notificationId,
-        status,
-        providerMessageId,
+        notificationId, status, providerMessageId
       });
     } catch (error) {
       logger.error('Failed to update notification status', {
-        notificationId,
-        status,
-        error: error instanceof Error ? error.message : String(error),
+        notificationId, status, error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  }
+
+  /**
+   * Webhook pour les callbacks de statut
+   */
+  async processStatusWebhook(
+    provider: string,
+    providerMessageId: string,
+    status: string,
+    notificationId?: string,
+    metadata?: any
+  ): Promise<boolean> {
+    try {
+      logger.info(`Received status webhook: ${provider} - ${status}`, {
+        provider, providerMessageId, status, notificationId
       });
       
-      throw error;
+      // Si l'ID de notification n'est pas fourni, il faudrait le retrouver
+      // via le providerMessageId dans une implémentation complète
+      
+      if (!notificationId) {
+        logger.warn('Notification ID not provided in webhook');
+        return false;
+      }
+      
+      // Convertir le statut du fournisseur en notre propre statut
+      let notificationStatus: NotificationStatus;
+      
+      switch (status.toLowerCase()) {
+        case 'delivered':
+          notificationStatus = NotificationStatus.DELIVERED;
+          break;
+        case 'sent':
+          notificationStatus = NotificationStatus.SENT;
+          break;
+        case 'opened':
+        case 'read':
+          notificationStatus = NotificationStatus.OPENED;
+          break;
+        case 'clicked':
+          notificationStatus = NotificationStatus.CLICKED;
+          break;
+        case 'failed':
+        case 'undelivered':
+        case 'error':
+          notificationStatus = NotificationStatus.FAILED;
+          break;
+        default:
+          notificationStatus = NotificationStatus.PENDING;
+      }
+      
+      // Mettre à jour le statut
+      await this.updateNotificationStatus(
+        notificationId,
+        notificationStatus,
+        providerMessageId,
+        undefined,
+        { provider, rawStatus: status, webhookData: metadata }
+      );
+      
+      return true;
+    } catch (error) {
+      logger.error('Failed to process status webhook', {
+        error: error instanceof Error ? error.message : String(error),
+        provider, status, notificationId
+      });
+      
+      return false;
+    }
+  }
+
+  /**
+   * Récupère les notifications les plus récentes (pour test/débogage)
+   */
+  async getRecentNotifications(limit: number = 10): Promise<Notification[]> {
+    try {
+      return await this.storage.getNotifications(limit);
+    } catch (error) {
+      logger.error('Failed to get recent notifications', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return [];
     }
   }
 }

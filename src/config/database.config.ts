@@ -9,8 +9,6 @@ export const dbConfig = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000,
-    // Auto-index désactivé en production pour performance
-    autoIndex: process.env.NODE_ENV !== 'production',
   }
 };
 
@@ -42,8 +40,7 @@ export const connectDB = async (): Promise<void> => {
       error: error instanceof Error ? error.message : String(error),
     });
     
-    // En cas d'échec de connexion, quitter l'application
-    process.exit(1);
+    throw error;
   }
 };
 

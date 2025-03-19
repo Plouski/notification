@@ -1,5 +1,8 @@
+// src/utils/logger.ts
 import winston from 'winston';
-import { appConfig } from '../config/app.config';
+
+// Récupérer le niveau de log depuis les variables d'environnement
+const logLevel = process.env.LOG_LEVEL || 'info';
 
 // Configuration du format de log
 const logFormat = winston.format.combine(
@@ -11,7 +14,7 @@ const logFormat = winston.format.combine(
 
 // Création du logger
 const logger = winston.createLogger({
-  level: appConfig.logLevel,
+  level: logLevel,
   format: logFormat,
   defaultMeta: { service: 'notification-service' },
   transports: [
@@ -31,8 +34,8 @@ const logger = winston.createLogger({
   ],
 });
 
-// En développement, ajouter des logs console pour faciliter le débogage
-if (appConfig.environment !== 'production') {
+// En développement, ajouter des logs console
+if (process.env.NODE_ENV !== 'production') {
   logger.add(new winston.transports.Console({
     format: winston.format.combine(
       winston.format.colorize(),
