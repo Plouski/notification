@@ -10,7 +10,7 @@ export class NotificationRepository {
     // Sauvegarder une nouvelle notification
     async saveNotification(notification: Notification): Promise<Notification> {
         try {
-            // Simuler un enregistrement MongoDB
+            // Stockage en mémoire
             this.notifications.set(notification.id, notification);
             logger.info(`Notification saved with ID: ${notification.id}`);
             return notification;

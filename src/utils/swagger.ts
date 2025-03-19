@@ -2,6 +2,8 @@
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import path from 'path';
+import logger from './logger';
 
 // Options Swagger
 const swaggerOptions = {
@@ -41,25 +43,33 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./src/routes/*.ts', './src/models/*.ts'],
+  // Utilisation de chemins absolus pour trouver les fichiers
+  apis: [
+    path.resolve(__dirname, '../routes/*.js'), // Notez .js, pas .ts car nous utiliseons les fichiers compilés
+    path.resolve(__dirname, '../models/*.js'),
+    path.resolve(__dirname, '../routes/*.ts'), // Pour le développement avec ts-node
+    path.resolve(__dirname, '../models/*.ts')
+  ],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 export const setupSwagger = (app: express.Application): void => {
-  // Ne pas activer Swagger en production pour des raisons de sécurité
-  if (process.env.NODE_ENV !== 'production') {
-    // Servir la documentation Swagger
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  // Activer Swagger indépendamment de l'environnement (pour dépannage)
+  // En production, vous voudrez peut-être le désactiver
+  // if (process.env.NODE_ENV !== 'production') {
     
-    // Endpoint pour récupérer le fichier swagger.json
-    app.get('/swagger.json', (req, res) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(swaggerSpec);
-    });
-    
-    console.log('Swagger documentation available at http://localhost:3000/api-docs');
-  }
+  // Servir la documentation Swagger
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  
+  // Endpoint pour récupérer le fichier swagger.json
+  app.get('/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
+  
+  logger.info('Swagger documentation available at http://localhost:3000/api-docs');
+  // }
 };
 
 export default setupSwagger;

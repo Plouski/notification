@@ -60,10 +60,9 @@ export class NotificationService {
   private storage: any;
 
   constructor() {
-    // Utiliser toujours le repository MongoDB pour stocker les données
-    // En développement, nous nous connecterons à MongoDB directement
+    // Utiliser directement le repository
     this.storage = notificationRepository;
-    logger.info('Notification service initialized with MongoDB storage');
+    logger.info('Notification service initialized with in-memory storage');
   }
 
   /**

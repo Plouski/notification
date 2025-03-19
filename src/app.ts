@@ -1,4 +1,4 @@
-// src/app.ts
+// src/app.ts (version modifiée)
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -8,7 +8,6 @@ import logger from './utils/logger';
 import { setupSwagger } from './utils/swagger';
 import notificationRoutes from './routes/notification.route';
 import rateLimiterMiddleware from './middlewares/rate-limiter.middleware';
-import { connectDB } from './config/database.config';
 
 dotenv.config();
 
@@ -31,11 +30,24 @@ app.use((req, res, next) => {
 // Rate limiter global pour prévenir les abus
 app.use(rateLimiterMiddleware);
 
-// Configurer Swagger
+// Configurer Swagger - DOIT ÊTRE AVANT LA DÉFINITION DES ROUTES
 setupSwagger(app);
 
+// Route de base pour l'API
+const apiRouter = express.Router();
+app.use('/api', apiRouter);
+
 // Routes
-app.use('/api/notifications', notificationRoutes);
+apiRouter.use('/notifications', notificationRoutes);
+
+// Routes directes (sans préfixe /api)
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Service de notification opérationnel',
+    docs: '/api-docs',
+    api: '/api/notifications'
+  });
+});
 
 // Route de santé pour les vérifications de disponibilité
 app.get('/health', (req, res) => {
@@ -75,16 +87,8 @@ const PORT = process.env.PORT || 3000;
 // Fonction de démarrage de l'application
 const startServer = async (): Promise<void> => {
   try {
-    // Connexion à MongoDB, même en développement
-    try {
-      logger.info('Connecting to MongoDB...');
-      await connectDB();
-      logger.info('MongoDB connection established successfully');
-    } catch (dbError) {
-      logger.warn('Failed to connect to MongoDB, continuing in simulation mode', {
-        error: dbError instanceof Error ? dbError.message : String(dbError)
-      });
-    }
+    // Informer que nous utilisons le stockage en mémoire
+    logger.info('Starting server with in-memory storage (MongoDB disabled)');
     
     // Démarrer le serveur
     app.listen(PORT, () => {
