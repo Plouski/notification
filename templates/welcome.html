@@ -7,74 +7,74 @@
     <title>Bienvenue sur RoadTrip!</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333333;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
         }
 
         .header {
-            background-color: #673AB7;
-            color: white;
+            background: transparent;
+            color: #fff;
             padding: 15px;
             text-align: center;
-            border-radius: 5px 5px 0 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .header h1 {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
         }
 
         .content {
             padding: 20px;
-        }
-
-        .feature {
-            display: flex;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-
-        .feature-icon {
-            margin-right: 15px;
-            color: #673AB7;
-            font-size: 24px;
+            text-align: center;
+            font-size: 16px;
         }
 
         .button {
             display: inline-block;
-            background-color: #673AB7;
-            color: white;
-            padding: 10px 20px;
+            background: #ff6f61;
+            color: #fff;
+            padding: 15px 25px;
             text-decoration: none;
-            border-radius: 3px;
-            margin: 20px 0;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:hover {
+            background: #ff4f41;
+            transform: scale(1.05);
         }
 
         .footer {
             text-align: center;
             padding: 10px;
             font-size: 12px;
-            color: #777777;
-            border-top: 1px solid #eeeeee;
+            color: #ddd;
         }
 
-        .social-links {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            display: inline-block;
-            margin: 0 5px;
-            color: #673AB7;
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -82,59 +82,25 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Bienvenue sur RoadTrip! !</h1>
+            <h1>Bienvenue sur RoadTrip! 🚗✨</h1>
         </div>
         <div class="content">
             <p>Bonjour {{name}},</p>
-            <p>Nous sommes ravis de vous accueillir sur RoadTrip!. Votre compte a été vérifié avec succès et vous
-                pouvez désormais profiter pleinement de notre service de notifications.</p>
-
-            <h2>Voici ce que vous pouvez faire avec RoadTrip! :</h2>
-
-            <div class="feature">
-                <div class="feature-icon">📧</div>
-                <div>
-                    <strong>Notifications par e-mail</strong>
-                    <p>Recevez des notifications importantes directement dans votre boîte mail.</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">📱</div>
-                <div>
-                    <strong>SMS</strong>
-                    <p>Ne manquez jamais une information critique grâce aux notifications par SMS.</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">🔔</div>
-                <div>
-                    <strong>Notifications push</strong>
-                    <p>Recevez des alertes instantanées sur votre appareil mobile ou votre navigateur.</p>
-                </div>
-            </div>
-
+            <p>Nous sommes ravis de vous accueillir sur <strong>RoadTrip!</strong>. Préparez-vous à découvrir de
+                nouveaux horizons, explorer des destinations inoubliables et vivre des aventures incroyables.</p>
+            <p>Avec RoadTrip!, partez à la rencontre de paysages époustouflants, créez vos itinéraires personnalisés et
+                partagez vos plus belles expériences de voyage.</p>
             <div style="text-align: center;">
-                <a href="#" class="button">Accéder à votre compte</a>
+                <a href="#" class="button">Commencez votre aventure</a>
             </div>
-
-            <p>N'hésitez pas à personnaliser vos préférences de notification dans les paramètres de votre compte pour
-                recevoir uniquement les informations qui vous intéressent.</p>
-
-            <p>Si vous avez des questions ou besoin d'aide, notre équipe de support est là pour vous assister.</p>
-
+            <p>Que ce soit pour une escapade de week-end ou un road trip de rêve, nous sommes là pour rendre chaque
+                voyage unique et mémorable.</p>
+            <p>Bon voyage et à bientôt sur les routes ! 😉</p>
             <p>Cordialement,<br>L'équipe RoadTrip!</p>
         </div>
         <div class="footer">
-            <p>Pour toute question, contactez-nous à {{supportEmail}}</p>
-            <div class="social-links">
-                <a href="#">Facebook</a> |
-                <a href="#">Twitter</a> |
-                <a href="#">Instagram</a> |
-                <a href="#">LinkedIn</a>
-            </div>
-            <p>&copy; RoadTrip! - Tous droits réservés</p>
+            <p>Des questions ? Contacte-nous à <a href="mailto:{{supportEmail}}">{{supportEmail}}</a></p>
+            <p>&copy; RoadTrip! 2025 - Let's hit the road!</p>
         </div>
     </div>
 </body>

@@ -10,6 +10,7 @@ const compression = require('compression');
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
+const setupSwagger = require('./config/swagger');
 
 // Charger les variables d'environnement
 dotenv.config({ path: './.env' });
@@ -42,6 +43,11 @@ connectDB();
 
 // Créer l'application Express
 const app = express();
+
+// Configurer Swagger en mode développement
+if (process.env.NODE_ENV === 'development') {
+  setupSwagger(app);
+}
 
 // Middleware CORS
 app.use(cors({

@@ -7,50 +7,74 @@
     <title>Vérifiez votre adresse e-mail</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333333;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
         }
 
         .header {
-            background-color: #4CAF50;
-            color: white;
+            background: transparent;
+            color: #fff;
             padding: 15px;
             text-align: center;
-            border-radius: 5px 5px 0 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .header h1 {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
         }
 
         .content {
             padding: 20px;
+            text-align: center;
+            font-size: 16px;
         }
 
         .button {
             display: inline-block;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+            background: #ff6f61;
+            color: #fff;
+            padding: 15px 25px;
             text-decoration: none;
-            border-radius: 3px;
-            margin: 20px 0;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:hover {
+            background: #ff4f41;
+            transform: scale(1.05);
         }
 
         .footer {
             text-align: center;
             padding: 10px;
             font-size: 12px;
-            color: #777777;
+            color: #ddd;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -58,29 +82,26 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Vérifiez votre adresse e-mail</h1>
+            <h1>Bienvenue à bord de RoadTrip!</h1>
         </div>
         <div class="content">
-            <p>Bonjour {{name}},</p>
-            <p>Merci de vous être inscrit(e) à RoadTrip!. Pour compléter votre inscription, veuillez vérifier votre
-                adresse e-mail en cliquant sur le bouton ci-dessous :</p>
+            <p>Salut {{name}},</p>
+            <p>Merci de nous rejoindre pour ce voyage incroyable 🚗✨ ! Pour commencer l'aventure, vérifie ton e-mail en cliquant ci-dessous :</p>
 
-            <div style="text-align: center;">
-                <a href="{{verificationUrl}}" class="button">Vérifier mon e-mail</a>
-            </div>
+            <a href="{{verificationUrl}}" class="button">Confirmer mon e-mail</a>
 
-            <p>Si le bouton ne fonctionne pas, vous pouvez copier et coller l'URL suivante dans votre navigateur :</p>
-            <p>{{verificationUrl}}</p>
+            <p>Si le bouton ne fonctionne pas, copie et colle ce lien dans ton navigateur :</p>
+            <p style="word-wrap: break-word; font-size: 14px;">{{verificationUrl}}</p>
 
-            <p>Ce lien de vérification expirera dans 24 heures.</p>
+            <p>Ce lien est valide pendant 24 heures. Après ça, l'aventure reprend sans toi 😉</p>
 
-            <p>Si vous n'avez pas créé de compte sur RoadTrip!, vous pouvez ignorer cet e-mail.</p>
+            <p>Si tu n'as pas demandé de compte, pas de souci, ignore simplement cet e-mail.</p>
 
-            <p>Cordialement,<br>L'équipe RoadTrip!</p>
+            <p>À bientôt sur la route !<br>L'équipe RoadTrip! 🌍</p>
         </div>
         <div class="footer">
-            <p>Pour toute question, contactez-nous à {{supportEmail}}</p>
-            <p>&copy; RoadTrip! - Tous droits réservés</p>
+            <p>Des questions ? Contacte-nous à <a href="mailto:{{supportEmail}}">{{supportEmail}}</a></p>
+            <p>&copy; RoadTrip! 2025 - Let's hit the road!</p>
         </div>
     </div>
 </body>

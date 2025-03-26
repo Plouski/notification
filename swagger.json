@@ -1,0 +1,1455 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Service de Notification",
+      "description": "Un microservice complet pour l'envoi de notifications par email, SMS et notifications push.",
+      "version": "1.0.0",
+      "contact": {
+        "email": "support@roadtrip.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "servers": [
+      {
+        "url": "/api",
+        "description": "Serveur de développement"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "Opérations d'authentification"
+      },
+      {
+        "name": "Notifications",
+        "description": "Gestion des notifications"
+      },
+      {
+        "name": "Email",
+        "description": "Envoi d'emails"
+      },
+      {
+        "name": "SMS",
+        "description": "Envoi de SMS"
+      },
+      {
+        "name": "Push",
+        "description": "Envoi de notifications push"
+      }
+    ],
+    "paths": {
+      "/users/signup": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Inscription d'un nouvel utilisateur",
+          "description": "Création d'un nouveau compte utilisateur et envoi d'un email de vérification",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignup"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Utilisateur créé avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      },
+                      "verificationToken": {
+                        "type": "string",
+                        "description": "Token de vérification d'email (uniquement en développement)"
+                      },
+                      "verificationURL": {
+                        "type": "string",
+                        "description": "URL de vérification d'email (uniquement en développement)"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Données d'entrée invalides",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/send/push": {
+        "post": {
+          "tags": ["Push"],
+          "summary": "Envoyer une notification push",
+          "description": "Envoie une notification push à un utilisateur, un token ou un topic",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["title", "body"],
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "Nouvelle notification",
+                      "description": "Titre de la notification"
+                    },
+                    "body": {
+                      "type": "string",
+                      "example": "Votre réservation a été confirmée",
+                      "description": "Corps de la notification"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "bookingId": "12345",
+                        "type": "booking_confirmation"
+                      },
+                      "description": "Données additionnelles à inclure dans la notification"
+                    },
+                    "userId": {
+                      "type": "string",
+                      "example": "60d21b4667d0d8992e610c85",
+                      "description": "ID de l'utilisateur à notifier"
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "d6Vw5PRiQ8-v0TbZm_sj2N:APA91...",
+                      "description": "Token FCM spécifique pour l'envoi de la notification"
+                    },
+                    "topic": {
+                      "type": "string",
+                      "example": "promotions",
+                      "description": "Topic pour les notifications groupées"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Notification push envoyée avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Notification push envoyée avec succès"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "successCount": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "failureCount": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "messageId": {
+                            "type": "string",
+                            "example": "projects/myproject/messages/1234567890"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Données invalides",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erreur lors de l'envoi de la notification push",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Connexion utilisateur",
+          "description": "Authentification d'un utilisateur existant",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["email", "password"],
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "example": "utilisateur@example.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "format": "password",
+                      "example": "MotDePasse123!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Connexion réussie",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Identifiants incorrects",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/logout": {
+        "get": {
+          "tags": ["Auth"],
+          "summary": "Déconnexion utilisateur",
+          "description": "Déconnecte l'utilisateur en invalidant le cookie JWT",
+          "responses": {
+            "200": {
+              "description": "Déconnexion réussie",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/verifyEmail/{token}": {
+        "get": {
+          "tags": ["Auth"],
+          "summary": "Vérification d'email",
+          "description": "Vérifie l'adresse email d'un utilisateur avec le token fourni",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "path",
+              "required": true,
+              "description": "Token de vérification d'email",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Email vérifié avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Token invalide ou expiré",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/forgotPassword": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Demande de réinitialisation de mot de passe",
+          "description": "Envoie un email et/ou SMS avec un lien ou code de réinitialisation",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["email"],
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "example": "utilisateur@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Email/SMS de réinitialisation envoyé",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Token de réinitialisation envoyé à votre email"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Utilisateur non trouvé",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/resetPassword/{token}": {
+        "patch": {
+          "tags": ["Auth"],
+          "summary": "Réinitialisation du mot de passe",
+          "description": "Définit un nouveau mot de passe avec le token de réinitialisation",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "path",
+              "required": true,
+              "description": "Token de réinitialisation de mot de passe",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["password", "passwordConfirm"],
+                  "properties": {
+                    "password": {
+                      "type": "string",
+                      "format": "password",
+                      "example": "NouveauMotDePasse123!"
+                    },
+                    "passwordConfirm": {
+                      "type": "string",
+                      "format": "password",
+                      "example": "NouveauMotDePasse123!"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Code de vérification SMS (si applicable)",
+                      "example": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Mot de passe réinitialisé avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Token invalide ou expiré",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/updateMyPassword": {
+        "patch": {
+          "tags": ["Auth"],
+          "summary": "Mise à jour du mot de passe",
+          "description": "Permet à un utilisateur connecté de mettre à jour son mot de passe",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["passwordCurrent", "password", "passwordConfirm"],
+                  "properties": {
+                    "passwordCurrent": {
+                      "type": "string",
+                      "format": "password",
+                      "example": "MotDePasseActuel123!"
+                    },
+                    "password": {
+                      "type": "string",
+                      "format": "password",
+                      "example": "NouveauMotDePasse123!"
+                    },
+                    "passwordConfirm": {
+                      "type": "string",
+                      "format": "password",
+                      "example": "NouveauMotDePasse123!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Mot de passe mis à jour avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Mot de passe actuel incorrect",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications": {
+        "get": {
+          "tags": ["Notifications"],
+          "summary": "Récupérer toutes les notifications",
+          "description": "Obtient toutes les notifications de l'utilisateur connecté",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Numéro de page pour la pagination",
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Nombre d'éléments par page",
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            },
+            {
+              "name": "type",
+              "in": "query",
+              "description": "Filtrer par type de notification",
+              "schema": {
+                "type": "string",
+                "enum": ["email", "sms", "push"]
+              }
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "description": "Filtrer par statut de notification",
+              "schema": {
+                "type": "string",
+                "enum": ["pending", "sent", "delivered", "failed", "read"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Liste des notifications récupérée avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "results": {
+                        "type": "integer",
+                        "example": 10
+                      },
+                      "total": {
+                        "type": "integer",
+                        "example": 50
+                      },
+                      "page": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "pages": {
+                        "type": "integer",
+                        "example": 5
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "notifications": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/Notification"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Non autorisé",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/unread": {
+        "get": {
+          "tags": ["Notifications"],
+          "summary": "Récupérer les notifications non lues",
+          "description": "Obtient les notifications non lues de l'utilisateur connecté",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Numéro de page pour la pagination",
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Nombre d'éléments par page",
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            },
+            {
+              "name": "type",
+              "in": "query",
+              "description": "Filtrer par type de notification",
+              "schema": {
+                "type": "string",
+                "enum": ["email", "sms", "push"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Liste des notifications non lues récupérée avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "results": {
+                        "type": "integer",
+                        "example": 5
+                      },
+                      "total": {
+                        "type": "integer",
+                        "example": 15
+                      },
+                      "page": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "pages": {
+                        "type": "integer",
+                        "example": 2
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "notifications": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/Notification"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Non autorisé",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/stats": {
+        "get": {
+          "tags": ["Notifications"],
+          "summary": "Statistiques des notifications",
+          "description": "Obtient des statistiques sur les notifications de l'utilisateur",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Statistiques récupérées avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "overall": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "sent"
+                                },
+                                "count": {
+                                  "type": "integer",
+                                  "example": 25
+                                }
+                              }
+                            }
+                          },
+                          "byType": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "email"
+                                },
+                                "count": {
+                                  "type": "integer",
+                                  "example": 15
+                                }
+                              }
+                            }
+                          },
+                          "byDate": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "2023-05-01"
+                                },
+                                "count": {
+                                  "type": "integer",
+                                  "example": 5
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Non autorisé",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/all": {
+        "delete": {
+          "tags": ["Notifications"],
+          "summary": "Supprimer toutes les notifications",
+          "description": "Supprime toutes les notifications de l'utilisateur connecté",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Notifications supprimées avec succès"
+            },
+            "401": {
+              "description": "Non autorisé",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/{id}": {
+        "get": {
+          "tags": ["Notifications"],
+          "summary": "Obtenir une notification spécifique",
+          "description": "Récupère les détails d'une notification spécifique",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la notification",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Notification récupérée avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "notification": {
+                            "$ref": "#/components/schemas/Notification"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Notification non trouvée",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": ["Notifications"],
+          "summary": "Marquer une notification comme lue",
+          "description": "Change le statut d'une notification à 'lue'",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la notification",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Notification marquée comme lue avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "notification": {
+                            "$ref": "#/components/schemas/Notification"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Notification non trouvée ou déjà lue",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Notifications"],
+          "summary": "Supprimer une notification",
+          "description": "Supprime une notification spécifique",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la notification",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Notification supprimée avec succès"
+            },
+            "404": {
+              "description": "Notification non trouvée",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/send/email": {
+        "post": {
+          "tags": ["Email"],
+          "summary": "Envoyer un email",
+          "description": "Envoie un email à un destinataire",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["to", "subject"],
+                  "properties": {
+                    "to": {
+                      "type": "string",
+                      "format": "email",
+                      "example": "destinataire@example.com"
+                    },
+                    "subject": {
+                      "type": "string",
+                      "example": "Sujet de l'email"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contenu de l'email en texte brut"
+                    },
+                    "template": {
+                      "type": "string",
+                      "example": "welcome",
+                      "description": "Nom du template à utiliser"
+                    },
+                    "variables": {
+                      "type": "object",
+                      "example": {
+                        "name": "Jean Dupont",
+                        "appName": "Service de Notification",
+                        "supportEmail": "support@roadtrip.com"
+                      },
+                      "description": "Variables à injecter dans le template"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Email envoyé avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Email envoyé avec succès"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "messageId": {
+                            "type": "string",
+                            "example": "<1234567890@example.com>"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Données invalides",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erreur lors de l'envoi de l'email",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/notifications/send/sms": {
+        "post": {
+          "tags": ["SMS"],
+          "summary": "Envoyer un SMS",
+          "description": "Envoie un SMS à un numéro de téléphone",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["to", "message"],
+                  "properties": {
+                    "to": {
+                      "type": "string",
+                      "example": "+33612345678",
+                      "description": "Numéro de téléphone du destinataire"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Votre code de vérification est: 123456",
+                      "description": "Contenu du SMS"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "SMS envoyé avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "success"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "SMS envoyé avec succès"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "messageId": {
+                            "type": "string",
+                            "example": "SM12345678901234567890123456789012"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "sent"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Données invalides",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erreur lors de l'envoi du SMS",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "UserSignup": {
+        "type": "object",
+        "required": ["name", "email", "password", "passwordConfirm"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jean Dupont"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jean.dupont@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+33612345678"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "MotDePasse123!"
+          },
+          "passwordConfirm": {
+            "type": "string",
+            "format": "password",
+            "example": "MotDePasse123!"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "60d21b4667d0d8992e610c85"
+          },
+          "providerId": {
+            "type": "string",
+            "example": "local_60d21b4667d0d8992e610c85"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jean Dupont"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jean.dupont@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+33612345678"
+          },
+          "emailVerified": {
+            "type": "boolean",
+            "example": false
+          },
+          "fcmTokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["d6Vw5PRiQ8-v0TbZm_sj2N:APA91..."]
+          },
+          "notificationPreferences": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "boolean",
+                "example": true
+              },
+              "sms": {
+                "type": "boolean",
+                "example": true
+              },
+              "push": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-01T12:00:00Z"
+          }
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "60d21b4667d0d8992e610c86"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "60d21b4667d0d8992e610c85"
+              },
+              "name": {
+                "type": "string",
+                "example": "Jean Dupont"
+              },
+              "email": {
+                "type": "string",
+                "example": "jean.dupont@example.com"
+              },
+              "phone": {
+                "type": "string",
+                "example": "+33612345678"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": ["email", "sms", "push"],
+            "example": "email"
+          },
+          "title": {
+            "type": "string",
+            "example": "Bienvenue sur RoadTrip!"
+          },
+          "message": {
+            "type": "string",
+            "example": "Merci de vous être inscrit sur notre plateforme."
+          },
+          "sentAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-01T12:00:00Z"
+          },
+          "deliveredAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-01T12:00:10Z"
+          },
+          "readAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-01T12:05:00Z"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "sent", "delivered", "failed", "read"],
+            "example": "sent"
+          },
+          "failureReason": {
+            "type": "string",
+            "example": "Adresse email invalide"
+          },
+          "metadata": {
+            "type": "object",
+            "example": {
+              "to": "jean.dupont@example.com",
+              "template": "welcome",
+              "messageId": "<1234567890@example.com>"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "fail"
+          },
+          "message": {
+            "type": "string",
+            "example": "Une erreur s'est produite"
+          }
+        }
+      }
+    }
+  }
+}
